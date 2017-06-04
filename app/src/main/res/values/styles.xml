@@ -1,0 +1,50 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="NewTheme_1" parent="@style/Theme.AppCompat.NoActionBar">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <!-- 加载对话框样式 -->
+    <style name="SimpleHUD" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+        <item name="android:windowBackground">@drawable/simplehud_bg</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="BottomAnim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/anim_bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/anim_bottom_out</item>
+    </style>
+
+    <style name="NewDialogSytle" parent="Base.Theme.AppCompat.Light.Dialog">
+    <!--<style name="NewDialogSytle" parent="android:Theme.Material.Light.Dialog">-->
+        <item name="android:windowNoTitle">true</item> <!-- 提示框是否有标题 -->
+        <item name="android:windowBackground">@android:color/transparent</item> <!-- 提示框的背景颜色 -->
+        <item name="android:windowFrame">@null</item> <!-- 提示框是否有边框 -->
+        <item name="android:backgroundDimEnabled">true</item> <!-- 是否充许对话框的背景变暗，true则充许变暗 -->
+        <item name="android:windowIsFloating">true</item> <!-- 提示框是否是浮在activity上 -->
+        <item name="android:windowIsTranslucent">true</item> <!-- 提示框是否透明 -->
+    </style>
+
+    <style name="NewRadioButton" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="android:button">@null</item>
+        <item name="android:paddingLeft">15dp</item>
+        <item name="android:paddingRight">15dp</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:drawableRight">@android:drawable/btn_radio</item>
+    </style>
+
+</resources>

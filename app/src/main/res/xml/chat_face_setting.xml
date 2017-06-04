@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:preference="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory android:layout="@layout/prefs_category_widget_1">
+        <com.iilu.fendou.preference.MainPreference
+            android:key="face_change_style"
+            preference:img_right="@mipmap/arrow_right_1"
+            preference:tv_left="表情切换样式"
+            preference:tv_left_color="@color/black"/>
+    </PreferenceCategory>
+</PreferenceScreen>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<inset xmlns:android="http://schemas.android.com/apk/res/android">
+    <selector>
+        <item android:state_enabled="false">
+            <nine-patch
+                android:src="@mipmap/edittext_bg_normal"
+                android:tint="@color/gray_light" /> <!-- tint：着色器  例：当前edittext_src是黑色的线条，而显示时，由于使用了tint，重新设置了颜色，因此，就会显示设置的线条颜色  -->
+        </item>
+        <item
+            android:state_focused="false"
+            android:state_pressed="false">
+            <nine-patch
+                android:src="@mipmap/edittext_bg_normal"
+                android:tint="@color/gray_light" />
+        </item>
+        <item>
+            <nine-patch
+                android:src="@mipmap/edittext_bg_focus"
+                android:tint="#00dd00" />
+        </item>
+    </selector>
+</inset>

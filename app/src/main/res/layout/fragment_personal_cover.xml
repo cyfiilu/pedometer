@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/iv_personal_cover"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/gray_3"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/tv_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_above="@+id/iv_head"
+        android:layout_marginBottom="10dp"
+        android:textSize="14sp"/>
+
+    <com.iilu.fendou.views.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/iv_head"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_centerInParent="true"
+        android:src="@mipmap/head_default"
+        app:border_color="@color/white"
+        app:border_width="2dp" />
+
+    <TextView
+        android:id="@+id/tv_personal_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_head"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:text="@string/personal_info"
+        android:textSize="16sp"/>
+
+    <ImageView
+        android:id="@+id/iv_arrow"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="4dp"
+        android:layout_below="@+id/iv_head"
+        android:layout_alignTop="@+id/tv_personal_info"
+        android:layout_centerHorizontal="true"
+        android:layout_toRightOf="@+id/tv_personal_info"
+        android:src="@mipmap/arrow_right_1"/>
+
+</RelativeLayout>

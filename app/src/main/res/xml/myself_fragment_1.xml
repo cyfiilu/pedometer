@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:preference="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        android:layout="@layout/prefs_category_widget_1"
+        android:title="设置模块一">
+        <com.iilu.fendou.preference.MainPreference
+            preference:img_left="@mipmap/sport"
+            preference:img_right="@mipmap/arrow_right_1"
+            preference:tv_left="计步设置" >
+            <intent
+                android:targetPackage="com.iilu.fendou"
+                android:targetClass="com.iilu.fendou.modules.myself.activity.SportSettingActivity" />
+        </com.iilu.fendou.preference.MainPreference>
+
+        <com.iilu.fendou.preference.MainPreference
+            preference:img_left="@mipmap/scan_code"
+            preference:img_right="@mipmap/arrow_right_1"
+            preference:tv_left="@string/scan_code" >
+            <intent
+                android:targetPackage="com.iilu.fendou"
+                android:targetClass="com.iilu.fendou.modules.myself.activity.ScanCodeActivity" />
+        </com.iilu.fendou.preference.MainPreference>
+
+        <com.iilu.fendou.preference.MainPreference
+            preference:img_left="@mipmap/app_introduce"
+            preference:img_right="@mipmap/arrow_right_1"
+            preference:tv_left="app介绍" >
+            <intent
+                android:targetPackage="com.iilu.fendou"
+                android:targetClass="com.iilu.fendou.modules.myself.activity.AppIntroduceActivity" />
+    </com.iilu.fendou.preference.MainPreference>
+
+        <com.iilu.fendou.preference.MainPreference
+            preference:img_left="@mipmap/app_about"
+            preference:img_right="@mipmap/arrow_right_1"
+            preference:tv_left="关于" >
+            <intent
+                android:targetPackage="com.iilu.fendou"
+                android:targetClass="com.iilu.fendou.modules.myself.activity.AboutActivity" />
+        </com.iilu.fendou.preference.MainPreference>
+    </PreferenceCategory>
+
+</PreferenceScreen>

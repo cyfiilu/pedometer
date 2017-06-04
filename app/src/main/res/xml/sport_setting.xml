@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:preference="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        android:layout="@layout/prefs_category_widget_2"
+        android:icon="@mipmap/base_info"
+        android:title="基本信息">
+        <com.iilu.fendou.preference.MainPreference
+            android:key="day_goal_stepnum"
+            preference:img_right="@mipmap/arrow_right_1"
+            preference:tv_left="每日目标步数" />
+
+        <com.iilu.fendou.preference.MainPreference
+            android:key="user_weight"
+            preference:img_right="@mipmap/arrow_right_1"
+            preference:tv_left="体重"  />
+
+        <com.iilu.fendou.preference.MainPreference
+            android:key="user_stepwidth"
+            preference:img_right="@mipmap/arrow_right_1"
+            preference:tv_left="步幅" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:layout="@layout/prefs_category_widget_2"
+        android:icon="@mipmap/morining"
+        android:title="朝朝">
+        <com.iilu.fendou.preference.MainPreference
+            android:key="zhaozhao_time"
+            preference:img_right="@mipmap/arrow_right_1"
+            preference:tv_left="执行时间"  />
+
+        <com.iilu.fendou.preference.MainPreference
+            android:key="zhaozhao_goal_stepnum"
+            preference:img_right="@mipmap/arrow_right_1"
+            preference:tv_left="步数"  />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:layout="@layout/prefs_category_widget_2"
+        android:icon="@mipmap/evening"
+        android:title="暮暮">
+        <com.iilu.fendou.preference.MainPreference
+            android:key="mumu_time"
+            preference:img_right="@mipmap/arrow_right_1"
+            preference:tv_left="执行时间"  />
+
+        <com.iilu.fendou.preference.MainPreference
+            android:key="mumu_goal_stepnum"
+            preference:img_right="@mipmap/arrow_right_1"
+            preference:tv_left="步数"  />
+    </PreferenceCategory>
+
+</PreferenceScreen>

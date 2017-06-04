@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="start"
+    android:background="@color/white"
+    android:clickable="true"
+    android:orientation="vertical">
+    <!-- 加上clickable防止drawerlayout穿透 -->
+
+    <fragment
+        android:id="@+id/fragment_left_menu"
+        android:name="com.iilu.fendou.modules.fragment.MenuFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

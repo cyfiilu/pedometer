@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/shape_round_corner_white"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/title_introduce"
+        layout="@layout/title_main" />
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lineSpacingExtra="1.8dp"
+        android:padding="10dp"
+        android:textSize="16sp"/>
+
+</LinearLayout>

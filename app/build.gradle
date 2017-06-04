@@ -1,0 +1,117 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 22
+    buildToolsVersion "23.0.1"
+
+    signingConfigs {
+        config {
+            keyAlias 'android.keystore'
+            keyPassword 'fendou1234'
+            storeFile file('android.keystore')
+            storePassword 'fendou1234'
+        }
+    }
+
+    lintOptions {
+        // build release 版本 时 开启lint 检测
+        // checkReleaseBuilds true
+        // lint 遇到 error 时继续 构建
+        abortOnError false
+        disable "ResourceType" /* 如：检查getResources().getDrawable(R.anim.anim_sport_pull_down)，无法打包 */
+    }
+
+    defaultConfig {
+        multiDexEnabled true
+        applicationId "com.iilu.fendou"
+        minSdkVersion 21
+        targetSdkVersion 22
+        versionCode 101
+        versionName "1.0.1"
+        buildConfigField "String", "BUILD_TIMESTAMP", "\"" + new Date(System.currentTimeMillis()).toLocaleString() + "\""
+
+        ndk {
+            abiFilters /*"arm64-v8a", "armeabi-v7a", "x86",*/ "armeabi"
+        }
+    }
+
+    buildTypes {
+        release {
+            debuggable true
+            jniDebuggable false
+            zipAlignEnabled false
+            minifyEnabled true /* true:打包混淆，启用后，打的包程序运行出错 */
+            shrinkResources true
+            signingConfig signingConfigs.config
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+    dexOptions {
+        incremental true
+        javaMaxHeapSize "4g"
+    }
+
+    productFlavors {
+    }
+
+    // 打包名
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def file = output.outputFile
+            output.outputFile = new File(file.parent, "ifendou_" + defaultConfig.versionName + ".apk")
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    /* log4j日志 */
+    compile files('libs/android-logging-log4j-1.0.3.jar')
+    compile files('libs/log4j-1.2.15.jar')
+    /* VRequest网络 */
+    compile files('libs/volley.jar')
+    /* loopj网络 */
+    compile files('libs/android-async-http-1.4.4.jar')
+    compile files('libs/httpclient-4.0.3.jar')
+    compile files('libs/httpcore-4.0.1.jar')
+    /* eventbus */
+    compile files('libs/eventbus-2.4.0.jar')
+    /* zxing二维码 */
+    compile files('libs/core-3.1.0.jar')
+    /* 数据库 */
+    compile files('libs/lite-orm-1.9.2.jar')
+    /* 环信 */
+    compile files('libs/hyphenatechat_3.3.1.jar')
+    /* recyclerview */
+    /* compile files('libs/android-support-v7-recyclerview.jar')，打包时和api23中的冲突 */
+    /* 异步加载网络图片 */
+    compile files('libs/universal-image-loader-1.9.5.jar')
+    /* 未读消息 */
+    compile files('libs/badgeview.jar')
+    /* rx框架 */
+    compile 'io.reactivex:rxjava:1.1.6'
+    compile 'io.reactivex:rxandroid:1.2.0'
+    /* retrofit2网络框架 */
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+    /* okhttp3网络框架 */
+    compile 'com.squareup.okhttp3:okhttp:3.4.1'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+    /* 环信 */
+    /* compile 'com.hyphenate:hyphenate-sdk:3.3.0' */
+    /* recyclerview */
+    /* compile 'com.android.support:recyclerview-v7:22.1.1' */
+    /* recyclerview */
+    /* compile 'org.greenrobot:eventbus:3.0.0' */
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:22.1.1'
+    compile project(path: ':lib_swipeback')
+    compile project(path: ':lib_flinglayout')
+}

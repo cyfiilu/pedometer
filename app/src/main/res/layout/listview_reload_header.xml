@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ListView头部 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="#F8F8F8"
+    android:orientation="vertical" >
+
+    <!-- 内容 -->
+    <RelativeLayout
+        android:id="@+id/head_contentlayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="30dip" >
+        <!-- 进度条 -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" >
+            <ImageView
+                android:id="@+id/animationiamge"
+                android:layout_width="45dip"
+                android:layout_height="45dip"
+                android:layout_gravity="center_vertical"
+                android:background="@anim/anim_pull_down"
+                android:contentDescription="@string/app_name" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dip"
+                android:text="@string/loading"
+                android:textColor="#999999"
+                android:textSize="16dip" />
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

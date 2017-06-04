@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:preference="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        android:layout="@layout/prefs_category_widget_1"
+        android:title="模块1">
+        <com.iilu.fendou.preference.MainPreference
+            android:key="user_sex"
+            preference:img_right="@mipmap/arrow_right_1"
+            preference:tv_left="性别" />
+
+        <com.iilu.fendou.preference.MainPreference
+            android:key="user_height"
+            preference:img_right="@mipmap/arrow_right_1"
+            preference:tv_left="身高" />
+
+        <com.iilu.fendou.preference.MainPreference
+            android:key="user_weight"
+            preference:img_right="@mipmap/arrow_right_1"
+            preference:tv_left="体重" />
+
+        <com.iilu.fendou.preference.MainPreference
+            android:key="uesr_city"
+            preference:img_right="@mipmap/arrow_right_1"
+            preference:tv_left="城市" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:layout="@layout/prefs_category_widget_1"
+        android:title="模块2">
+        <com.iilu.fendou.preference.MainPreference
+            android:key="user_code_card"
+            preference:img_right="@mipmap/code"
+            preference:tv_left="二维码名片" />
+    </PreferenceCategory>
+
+</PreferenceScreen>
