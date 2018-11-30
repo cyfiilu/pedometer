@@ -27,6 +27,7 @@ import com.iilu.fendou.configs.PrefsConfig;
 import com.iilu.fendou.modules.message.adapter.MessageAdapter;
 import com.iilu.fendou.modules.message.fragment.FaceMainFragment;
 import com.iilu.fendou.utils.SPrefUtil_2;
+import com.iilu.fendou.utils.StatusBarUtil;
 import com.iilu.fendou.utils.SystemUtil;
 import com.iilu.fendou.views.FaceKeyboard;
 
@@ -49,17 +50,18 @@ public class ChatActivity extends MainFragmentActivity implements View.OnClickLi
     private EMConversation mEMConversation;
     private InputMethodManager mInputMethodManager;
 
-    private Handler mHandler = new Handler() {
+    private Handler mHandler = new Handler(new Handler.Callback() {
         @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
+        public boolean handleMessage(Message msg) {
+            return false;
         }
-    };
+    });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+        StatusBarUtil.compat(this, getResources().getColor(R.color.blue_light));
 
         getIntentData();
 

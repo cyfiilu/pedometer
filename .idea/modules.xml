@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/MyApplication.iml" filepath="$PROJECT_DIR$/MyApplication.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib_flinglayout/lib_flinglayout.iml" filepath="$PROJECT_DIR$/lib_flinglayout/lib_flinglayout.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib_swipeback/lib_swipeback.iml" filepath="$PROJECT_DIR$/lib_swipeback/lib_swipeback.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pedometer.iml" filepath="$PROJECT_DIR$/pedometer.iml" />
     </modules>
   </component>
 </project>

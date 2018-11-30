@@ -50,7 +50,7 @@ public class SPrefUtil_2 {
      */
     public static <T> T get(Context context, String spName, String key, T defaultValue) {
         if (context == null) context = MainApplication.getAppContext();
-        if (context == null) return null;
+        if (context == null) return defaultValue;
 
         SharedPreferences sp = context.getSharedPreferences(spName, Context.MODE_PRIVATE);
 

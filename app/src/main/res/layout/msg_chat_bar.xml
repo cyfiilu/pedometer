@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/chat_bar_layout"
     android:layout_width="match_parent"
-    android:layout_height="45dp"
-    android:paddingTop="3dp"
-    android:paddingBottom="3dp"
+    android:layout_height="wrap_content"
+    android:paddingTop="6dp"
+    android:paddingBottom="6dp"
     android:background="@color/white"
     android:orientation="horizontal">
 
@@ -64,8 +64,10 @@
         android:layout_gravity="center_vertical"
         android:layout_marginRight="5dp"
         android:layout_marginTop="3dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
         android:text="@string/msg_send"
         android:visibility="gone" />
 </LinearLayout>

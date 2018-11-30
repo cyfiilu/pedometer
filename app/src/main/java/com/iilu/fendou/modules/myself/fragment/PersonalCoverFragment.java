@@ -1,15 +1,18 @@
 package com.iilu.fendou.modules.myself.fragment;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -26,8 +29,10 @@ import com.iilu.fendou.MainFragment;
 import com.iilu.fendou.R;
 import com.iilu.fendou.configs.UserInfoConfig;
 import com.iilu.fendou.modules.myself.activity.PersonalInfoActivity;
+import com.iilu.fendou.modules.myself.activity.ScanCodeActivity;
 import com.iilu.fendou.utils.BitmapUtil;
 import com.iilu.fendou.utils.FileUtil;
+import com.iilu.fendou.utils.PermissionUtil;
 import com.iilu.fendou.utils.ToastUtil;
 
 import java.io.File;
@@ -162,35 +167,33 @@ public class PersonalCoverFragment extends MainFragment implements View.OnClickL
             } else {
                 uri = mPhotoUri;
             }
-            String path = FileUtil.getPath(mContext, uri);
-            File file = new File(path);
-            Bitmap bitmap;
-            if (isCover) {
-                bitmap = BitmapUtil.toBitmapThumbnail(file); // 旋转的图片
-                mImgCover.setImageBitmap(bitmap);
-                BitmapUtil.saveImage(bitmap, mPath, mUsernameStr + ".jpg");
-            } else {
-                bitmap = BitmapUtil.compressBitmap(file);
-                mImgHead.setImageBitmap(bitmap);
-                BitmapUtil.saveImage(bitmap, mPath, mHeadStr + ".jpg");
-            }
+            doActivityResult(uri);
         } else if (requestCode == FROM_GALLERY && resultCode == Activity.RESULT_OK && data != null) { // 图库
-            Uri uri = data.getData();
-            String scheme = uri.getScheme();
-            if ("file".equalsIgnoreCase(scheme)) {
-                String path = uri.getPath();
-                File file = new File(path);
-                Bitmap bitmap;
-                if (isCover) {
-                    bitmap = BitmapUtil.toBitmapThumbnail(file);
-                    mImgCover.setImageBitmap(bitmap);
-                    BitmapUtil.saveImage(bitmap, mPath, mUsernameStr + ".jpg");
-                } else {
-                    bitmap = BitmapUtil.compressBitmap(file);
-                    mImgHead.setImageBitmap(bitmap);
-                    BitmapUtil.saveImage(bitmap, mPath, mHeadStr + ".jpg");
-                }
-            }
+            doActivityResult(data.getData());
+        }
+    }
+
+    private void doActivityResult(Uri uri) {
+        String path = FileUtil.getPath(mContext, uri);
+        File file = new File(path);
+        Bitmap bitmap;
+        if (isCover) {
+            bitmap = BitmapUtil.toBitmapThumbnail(file);
+            mImgCover.setImageBitmap(bitmap);
+            BitmapUtil.saveImage(bitmap, mPath, mUsernameStr + ".jpg");
+        } else {
+            bitmap = BitmapUtil.compressBitmap(file);
+            mImgHead.setImageBitmap(bitmap);
+            BitmapUtil.saveImage(bitmap, mPath, mHeadStr + ".jpg");
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 0x003 && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+            startActivityCaptrue();
         }
     }
 
@@ -232,17 +235,13 @@ public class PersonalCoverFragment extends MainFragment implements View.OnClickL
             switch (v.getId()) {
                 case R.id.tv_camera:
                     dismiss();
-                    String mountedPath = Environment.getExternalStorageState();
-                    final File cameraPath = new File(mountedPath + "/DCIM/Camera"); // 拍摄照片存储的文件夹路径
-                    if (Environment.MEDIA_MOUNTED.equals(mountedPath)) { // 判断是否有SD卡
-                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                        ContentValues values = new ContentValues();
-                        values.put(MediaStore.Images.Media.TITLE, getPhotoFileName());
-                        mPhotoUri = getContext().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-                        intent.putExtra(MediaStore.EXTRA_OUTPUT, mPhotoUri);
-                        ((Activity) mContext).startActivityForResult(intent, FROM_CAMERA); // 用户点击了从照相机获取
+                    if (!PermissionUtil.checkPermission(getActivity(),
+                            new String[] {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})) {
+                        PermissionUtil.requestPermission(getActivity(),
+                                new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                0x003);
                     } else {
-                        ToastUtil.showCenter(mContext, R.string.no_sdcard);
+                        startActivityCaptrue();
                     }
                     break;
                 case R.id.tv_gallery:
@@ -257,11 +256,29 @@ public class PersonalCoverFragment extends MainFragment implements View.OnClickL
                     break;
             }
         }
+    }
 
-        private String getPhotoFileName() {
-            Date date = new Date(System.currentTimeMillis());
-            SimpleDateFormat dateFormat = new SimpleDateFormat("'IMG'_yyyyMMdd_HHmmss");
-            return dateFormat.format(date) + ".jpg";
+    private String getPhotoFileName() {
+        Date date = new Date(System.currentTimeMillis());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("'IMG'_yyyyMMdd_HHmmss");
+        return dateFormat.format(date) + ".jpg";
+    }
+
+    /**
+     * 启动相机
+     */
+    private void startActivityCaptrue() {
+        String mountedPath = Environment.getExternalStorageState();
+        final File cameraPath = new File(mountedPath + "/DCIM/Camera"); // 拍摄照片存储的文件夹路径
+        if (Environment.MEDIA_MOUNTED.equals(mountedPath)) { // 判断是否有SD卡
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            ContentValues values = new ContentValues();
+            values.put(MediaStore.Images.Media.TITLE, getPhotoFileName());
+            mPhotoUri = getContext().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, mPhotoUri);
+            ((Activity) mContext).startActivityForResult(intent, FROM_CAMERA); // 用户点击了从照相机获取
+        } else {
+            ToastUtil.showCenter(mContext, R.string.no_sdcard);
         }
     }
 

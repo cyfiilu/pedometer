@@ -3,11 +3,16 @@ package com.iilu.fendou.views;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.Build;
 import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -23,6 +28,8 @@ import com.iilu.fendou.utils.SPrefUtil_2;
 import org.apache.log4j.Logger;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 public class FaceKeyboard {
 
@@ -394,13 +401,16 @@ public class FaceKeyboard {
          * 这是因为高度是包括了虚拟按键栏的(例如华为系列)，所以在API Level高于20时，
          * 我们需要减去底部虚拟按键栏的高度（如果有的话）
          */
-        if (Build.VERSION.SDK_INT >= 20) {
-            // When SDK Level >= 20 (Android L), the softInputHeight will contain the height of softButtonsBar (if has)
-            softInputHeight = softInputHeight - getSoftButtonsBarHeight();
+        if (hasSoftButtonsBar(mActivity) && checkSoftButtonsBarShow(mActivity, mActivity.getWindow())) {
+            if (Build.VERSION.SDK_INT >= 20 && softInputHeight > 0) {
+                // When SDK Level >= 20 (Android L), the softInputHeight will contain the height of softButtonsBar (if has)
+                softInputHeight = softInputHeight - getSoftButtonsBarHeight();
+            }
         }
 
         if (softInputHeight < 0) {
             mlog.error("Warning: value of softInputHeight is below zero!");
+            softInputHeight = 0;
         }
         //存一份到本地
         if (softInputHeight > 0) {
@@ -409,6 +419,64 @@ public class FaceKeyboard {
         return softInputHeight;
     }
 
+    /**
+     * 是否有虚拟导航栏
+     */
+    private boolean hasSoftButtonsBar(Context context) {
+        boolean has = false;
+        if (context == null) return has;
+        Resources rs = context.getResources();
+        int id = rs.getIdentifier("config_showNavigationBar", "bool", "android");
+        if (id > 0) {
+            has = rs.getBoolean(id);
+        }
+
+        try {
+            Class systemPropertiesClass = Class.forName("android.os.SystemProperties");
+            Method m = systemPropertiesClass.getMethod("get", String.class);
+            String navBarOveride = (String) m.invoke(systemPropertiesClass, "qemu.hw.mainkeys");
+            if ("1".equals(navBarOveride)) {
+                has = false;
+            } else if ("0".equals(navBarOveride)) {
+                has = true;
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return has;
+    }
+
+    /**
+     * 检查虚拟导航栏是否显示（因为虚拟导航栏可以隐藏的）
+     * @param context
+     * @param window
+     * @return
+     */
+    private boolean checkSoftButtonsBarShow(Context context, Window window) {
+        boolean show = false;
+        if (context == null || window == null) return show;
+        Display display = window.getWindowManager().getDefaultDisplay();
+        Point point = new Point();
+        display.getRealSize(point);
+
+        View decorView = window.getDecorView();
+        Configuration conf = context.getResources().getConfiguration();
+        if (Configuration.ORIENTATION_LANDSCAPE == conf.orientation) {
+            View contentView = decorView.findViewById(android.R.id.content);
+            show = (point.x != contentView.getWidth());
+        } else {
+            Rect rect = new Rect();
+            decorView.getWindowVisibleDisplayFrame(rect);
+            show = (rect.bottom != point.y);
+        }
+        return show;
+    }
 
     /**
      * 底部虚拟按键栏的高度

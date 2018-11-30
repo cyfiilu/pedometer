@@ -3,6 +3,7 @@ package com.iilu.fendou.modules.fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -31,6 +32,7 @@ import com.iilu.fendou.modules.message.adapter.MsgRecyclerAdapter;
 import com.iilu.fendou.modules.message.entity.EasemobAddFriend;
 import com.iilu.fendou.modules.message.entity.EasemobMessage;
 import com.iilu.fendou.modules.message.entity.MsgBase;
+import com.iilu.fendou.utils.StatusBarUtil;
 import com.iilu.fendou.views.RecycleViewDivider;
 
 import java.util.ArrayList;
@@ -54,15 +56,15 @@ public class MessageFragment extends MainFragment implements SwipeRefreshLayout.
 
     private MsgAddFriendDB mMsgAddFriendDB;
 
-    private Handler mHandler = new Handler() {
+    private Handler mHandler = new Handler(new Handler.Callback() {
         @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
+        public boolean handleMessage(Message msg) {
             mSwipeRefreshLayout.setRefreshing(false);
             mAdapter = new MsgRecyclerAdapter(mContext, mDatas);
             mRecyclerView.setAdapter(mAdapter);
+            return false;
         }
-    };
+    });
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,6 +76,8 @@ public class MessageFragment extends MainFragment implements SwipeRefreshLayout.
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_message, container, false);
+
+        StatusBarUtil.compat(getActivity(), Color.TRANSPARENT);
 
         mMsgAddFriendDB = new MsgAddFriendDB(mContext);
         initViews(view);

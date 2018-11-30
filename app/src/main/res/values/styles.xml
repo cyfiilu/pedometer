@@ -1,15 +1,11 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-    </style>
-
-    <style name="NewTheme_1" parent="@style/Theme.AppCompat.NoActionBar">
-        <item name="android:textColor">@color/black</item>
+        <!-- textView color -->
+        <item name="android:textColor">@color/black_app</item>
     </style>
 
     <!-- 加载对话框样式 -->

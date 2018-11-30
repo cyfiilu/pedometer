@@ -5,6 +5,14 @@
     android:background="@drawable/shape_round_corner_white"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/tv_status_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/status_bar_height"
+        android:background="@color/blue_light"
+        android:elevation="@dimen/dimen_4dp"
+        android:fitsSystemWindows="true"/>
+
     <include
         android:id="@+id/title_introduce"
         layout="@layout/title_main" />

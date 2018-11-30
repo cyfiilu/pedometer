@@ -1,9 +1,14 @@
 package com.iilu.fendou;
 
+import android.Manifest;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.os.Build;
+import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AppCompatActivity;
 
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMOptions;
@@ -38,7 +43,7 @@ public class MainApplication extends Application {
     public void onCreate() {
         super.onCreate();
         mContext = this;
-        LogConfig.configure();
+
         new DBHelper(this).getWritableDatabase();
         //LiteOrmDB.createDb(mContext, DBConfig.DB_NAME);
 
@@ -91,20 +96,25 @@ public class MainApplication extends Application {
     }
 
     private void initAppIntroduce() {
-        try {
-            InputStream is = this.getAssets().open("readme.txt");
-            InputStreamReader inputStreamReader = new InputStreamReader(is);
-            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-            String line;
-            StringBuilder sb = new StringBuilder();
-            while ((line = bufferedReader.readLine()) != null) {
-                sb.append(line);
-                sb.append("\n");
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    InputStream is = mContext.getAssets().open("readme.txt");
+                    InputStreamReader inputStreamReader = new InputStreamReader(is);
+                    BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                    String line;
+                    StringBuilder sb = new StringBuilder();
+                    while ((line = bufferedReader.readLine()) != null) {
+                        sb.append(line);
+                        sb.append("\n");
+                    }
+                    mAppIntroduceContent = sb.toString();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-            mAppIntroduceContent = sb.toString();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        }).start();
     }
 
     public static String getAppIntroduceContent() {

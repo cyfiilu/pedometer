@@ -30,9 +30,9 @@ public class SportView extends View {
     /** 线条范围 */
     private final int LINT_RANGE = 270;
     /** 线条宽度 */
-    private final int STROKE_WIDTH = 50;
+    private final int STROKE_WIDTH = 30;
     /** 旋转角度 */
-    private final float ROATE_DEGREE = 135f;
+    private final float ROTATE_DEGREE = 135f;
     /** 线条个数 */
     private final int LINE_COUNT = 55;
     /** 线条粗细 */
@@ -129,7 +129,7 @@ public class SportView extends View {
         int radius = center - STROKE_WIDTH / 2;
 
         // 旋转画布
-        canvas.rotate(ROATE_DEGREE, center, center);
+        canvas.rotate(ROTATE_DEGREE, center, center);
 
         mDialPaint.setStrokeWidth(STROKE_WIDTH);
 

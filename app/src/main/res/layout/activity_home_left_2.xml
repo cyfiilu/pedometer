@@ -31,10 +31,16 @@
                     android:layout_above="@+id/hot_seat" />
 
                 <include
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_above="@+id/hot_seat"
+                    layout="@layout/line" />
+
+                <include
                     android:id="@+id/hot_seat"
                     layout="@layout/hot_seat"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true" />
             </RelativeLayout>
         </LinearLayout>

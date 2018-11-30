@@ -6,11 +6,11 @@ import android.widget.ListView;
 
 import com.iilu.fendou.interfaces.OnNotificationListener;
 
-public class NoScrollListview extends ListView {
+public class NoScrollListView extends ListView {
 	
 	private OnNotificationListener listener;
 
-	public NoScrollListview(Context context, AttributeSet attrs) {
+	public NoScrollListView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 	}
 

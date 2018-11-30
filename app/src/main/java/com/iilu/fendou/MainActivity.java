@@ -2,7 +2,6 @@ package com.iilu.fendou;
 
 import android.os.Bundle;
 
-import com.iilu.fendou.utils.SystemUtil;
 import com.lib.swipeback.SwipeBackLayout;
 import com.lib.swipeback.app.SwipeBackActivity;
 
@@ -30,12 +29,12 @@ public class MainActivity extends SwipeBackActivity {
 
             @Override
             public void onEdgeTouch(int edgeFlag) {
-                SystemUtil.vibrate(MainActivity.this, 20);
+                //SystemUtil.vibrate(MainActivity.this, 20);
             }
 
             @Override
             public void onScrollOverThreshold() {
-                SystemUtil.vibrate(MainActivity.this, 20);
+                //SystemUtil.vibrate(MainActivity.this, 20);
             }
         });
     }

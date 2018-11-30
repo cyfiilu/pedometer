@@ -4,17 +4,25 @@
     android:layout_height="match_parent"
     android:background="@color/gray_light">
 
-    <Button
-        android:id="@+id/btn_skip"
+    <TextView
+        android:id="@+id/tv_status_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/status_bar_height"
+        android:background="@color/gray_light"
+        android:fitsSystemWindows="true"/>
+
+    <TextView
+        android:id="@+id/tv_skip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_status_bar"
         android:layout_alignParentRight="true"
         android:layout_marginRight="25dp"
         android:layout_marginTop="20dp"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:paddingTop="3dp"
-        android:paddingBottom="3dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         android:background="@drawable/selector_btn_round_corner"
         android:textSize="14sp"
         android:text="@string/skip"

@@ -1,6 +1,6 @@
-package com.iilu.fendou.logs;
+package com.iilu.fendou.utils;
 
-public class Log {
+public class LogUtil {
 
     /** 调试版本：打印所有log */
     private static final boolean isDebugged = true;

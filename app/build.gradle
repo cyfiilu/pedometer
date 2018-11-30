@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 22
-    buildToolsVersion "23.0.1"
+    compileSdkVersion 26
+    buildToolsVersion "28.0.2"
 
     signingConfigs {
         config {
@@ -25,9 +25,9 @@ android {
         multiDexEnabled true
         applicationId "com.iilu.fendou"
         minSdkVersion 21
-        targetSdkVersion 22
-        versionCode 101
-        versionName "1.0.1"
+        targetSdkVersion 26
+        versionCode 102
+        versionName "1.0.2"
         buildConfigField "String", "BUILD_TIMESTAMP", "\"" + new Date(System.currentTimeMillis()).toLocaleString() + "\""
 
         ndk {
@@ -53,7 +53,7 @@ android {
     }
 
     dexOptions {
-        incremental true
+        //incremental true
         javaMaxHeapSize "4g"
     }
 
@@ -61,10 +61,16 @@ android {
     }
 
     // 打包名
-    applicationVariants.all { variant ->
+    /*applicationVariants.all { variant ->
         variant.outputs.each { output ->
             def file = output.outputFile
             output.outputFile = new File(file.parent, "ifendou_" + defaultConfig.versionName + ".apk")
+        }
+    }*/
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            //outputFileName = "${buildType.name}_${defaultConfig.versionName}.apk"
+            outputFileName = "ifendou_${defaultConfig.versionName}.apk"
         }
     }
 }
@@ -111,7 +117,8 @@ dependencies {
     /* recyclerview */
     /* compile 'org.greenrobot:eventbus:3.0.0' */
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:22.1.1'
+    implementation 'com.android.support:recyclerview-v7:26.1.0'
     compile project(path: ':lib_swipeback')
     compile project(path: ':lib_flinglayout')
+    implementation 'com.android.support:appcompat-v7:26.1.0'
 }

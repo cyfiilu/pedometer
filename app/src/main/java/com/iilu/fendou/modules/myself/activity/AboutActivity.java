@@ -1,6 +1,7 @@
 package com.iilu.fendou.modules.myself.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.iilu.fendou.BuildConfig;
 import com.iilu.fendou.MainActivity;
 import com.iilu.fendou.R;
+import com.iilu.fendou.utils.StatusBarUtil;
 import com.iilu.fendou.utils.ToastUtil;
 
 public class AboutActivity extends MainActivity implements View.OnClickListener {
@@ -22,12 +24,13 @@ public class AboutActivity extends MainActivity implements View.OnClickListener 
 
     private TextView mAppVersion;
     private TextView mGithubAddress;
-    private Button mCheckNewVersion;
+    private TextView mCheckNewVersion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
+        StatusBarUtil.compat(this, Color.TRANSPARENT);
 
         initViews();
 
@@ -41,7 +44,7 @@ public class AboutActivity extends MainActivity implements View.OnClickListener 
         imgBack.setOnClickListener(this);
         mAppVersion = (TextView) findViewById(R.id.tv_app_version);
         mGithubAddress = (TextView) findViewById(R.id.tv_github_address);
-        mCheckNewVersion = (Button) findViewById(R.id.btn_check_new_versin);
+        mCheckNewVersion = (TextView) findViewById(R.id.tv_check_new_versin);
         mAppVersion.setOnClickListener(this);
         mGithubAddress.setOnClickListener(this);
         mCheckNewVersion.setOnClickListener(this);
@@ -64,7 +67,7 @@ public class AboutActivity extends MainActivity implements View.OnClickListener 
                 intent.setData(Uri.parse("https://github.com/cyfiilu/pedometer"));
                 startActivity(intent);
                 break;
-            case R.id.btn_check_new_versin:
+            case R.id.tv_check_new_versin:
                 ToastUtil.showBottom(this, "已经是最新版本啦！");
                 break;
         }

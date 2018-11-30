@@ -15,7 +15,7 @@
         android:id="@+id/tv_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
         android:layout_above="@+id/iv_head"
         android:layout_marginBottom="10dp"
         android:textSize="14sp"/>
@@ -30,27 +30,27 @@
         app:border_color="@color/white"
         app:border_width="2dp" />
 
-    <TextView
-        android:id="@+id/tv_personal_info"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/iv_head"
-        android:layout_marginTop="10dp"
-        android:layout_centerHorizontal="true"
-        android:text="@string/personal_info"
-        android:textSize="16sp"/>
+        android:layout_marginTop="10dp">
+        <TextView
+            android:id="@+id/tv_personal_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/personal_info"
+            android:textSize="16sp"/>
 
-    <ImageView
-        android:id="@+id/iv_arrow"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="3dp"
-        android:layout_marginTop="4dp"
-        android:layout_below="@+id/iv_head"
-        android:layout_alignTop="@+id/tv_personal_info"
-        android:layout_centerHorizontal="true"
-        android:layout_toRightOf="@+id/tv_personal_info"
-        android:src="@mipmap/arrow_right_1"/>
+        <ImageView
+            android:id="@+id/iv_arrow"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginLeft="3dp"
+            android:layout_toRightOf="@+id/tv_personal_info"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/arrow_right_1"/>
+    </RelativeLayout>
 
 </RelativeLayout>

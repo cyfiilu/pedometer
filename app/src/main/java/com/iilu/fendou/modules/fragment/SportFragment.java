@@ -4,6 +4,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -42,8 +43,10 @@ import com.iilu.fendou.utils.DateUtil;
 import com.iilu.fendou.utils.ParseUtil;
 import com.iilu.fendou.utils.SPrefUtil_2;
 import com.iilu.fendou.utils.ServiceUtil;
+import com.iilu.fendou.utils.StatusBarUtil;
 import com.iilu.fendou.views.MainViewPager_1;
 import com.iilu.fendou.views.SlidingMenu;
+import com.iilu.fendou.views.SlidingMenuRight;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,10 +86,9 @@ public class SportFragment extends MainFragment implements View.OnClickListener 
     private Map<String, Integer> mSportInfoMap = new ConcurrentHashMap<>();
     private List<LinearLayout> mDatas = new ArrayList<>();
 
-    private Handler mHandler = new Handler() {
+    private Handler mHandler = new Handler(new Handler.Callback() {
         @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
+        public boolean handleMessage(Message msg) {
             switch (msg.what) {
                 case MSG_PULL_TO_REFRESH:
                     if (mPullScrollView != null) {
@@ -102,8 +104,9 @@ public class SportFragment extends MainFragment implements View.OnClickListener 
                     SPrefUtil_2.put(mContext, PrefsConfig.SPORT, mCurrLoginUsername + "_hasAdd", true);
                     break;
             }
+            return false;
         }
-    };
+    });
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -115,6 +118,8 @@ public class SportFragment extends MainFragment implements View.OnClickListener 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sport, container, false);
+
+        StatusBarUtil.compat(getActivity(), Color.TRANSPARENT);
 
         // 1. 初始化下拉刷新控件
         initPulltoRefreshView(view);
@@ -147,7 +152,7 @@ public class SportFragment extends MainFragment implements View.OnClickListener 
     private void initPulltoRefreshView(View view) {
         mPullScrollView = (PullToRefreshScrollView) view.findViewById(R.id.sport_pull_to_refresh);
         mPullScrollView.setHeaderTextColor("#ffffffff");
-        mPullScrollView.setLoadingDrawable(getResources().getDrawable(R.anim.anim_sport_pull_down));
+        mPullScrollView.setLoadingDrawable(getResources().getDrawable(R.drawable.anim_sport_pull_down, null));
         mPullScrollView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ScrollView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ScrollView> refreshView) {
@@ -186,7 +191,7 @@ public class SportFragment extends MainFragment implements View.OnClickListener 
         mImgRight.setImageResource(R.mipmap.add_white_normal);
         mImgRight.setOnClickListener(this);
 
-        RelativeLayout layoutSportInfo = (RelativeLayout) mChildView.findViewById(R.id.sport_info);
+        LinearLayout layoutSportInfo = (LinearLayout) mChildView.findViewById(R.id.sport_info);
         mTotalFinishDayCount = (TextView) layoutSportInfo.findViewById(R.id.tv_total_finish_day_count);
         mTotalStepCount = (TextView) layoutSportInfo.findViewById(R.id.tv_total_step_count);
 
@@ -243,7 +248,7 @@ public class SportFragment extends MainFragment implements View.OnClickListener 
         // 3. 将ViwePager指向最后一个
         mViewPager.setCurrentItem(mDatas.size() - 1);
         /// 4. 重新设置ViewPager监听
-        mViewPager.setOnPageChangeListener(mOnPageChangeListener);
+        mViewPager.addOnPageChangeListener(mOnPageChangeListener);
     }
 
     public MainViewPager_1 getViewPager() {
@@ -352,20 +357,40 @@ public class SportFragment extends MainFragment implements View.OnClickListener 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_left:
-                DrawerLayout drawerLayout = ((HomeActivity) mContext).getDrawerLayout();
-                if (drawerLayout != null) {
-                    if (drawerLayout.isDrawerOpen(Gravity.LEFT)) {
-                        drawerLayout.closeDrawers();
-                    } else {
-                        drawerLayout.openDrawer(Gravity.LEFT);
+                boolean isLeftSliding = SPrefUtil_2.get(mContext, PrefsConfig.APP_CONST, "isLeftSliding", true);
+                if (isLeftSliding) {
+                    DrawerLayout drawerLayout = ((HomeActivity) mContext).getDrawerLayout();
+                    if (drawerLayout != null) {
+                        if (drawerLayout.isDrawerOpen(Gravity.LEFT)) {
+                            drawerLayout.closeDrawers();
+                        } else {
+                            drawerLayout.openDrawer(Gravity.LEFT);
+                        }
                     }
-                }
-                SlidingMenu slidingMenu = ((HomeActivity) mContext).getSlidingMenu();
-                if (slidingMenu != null) {
-                    if (slidingMenu.isOpen()) {
-                        slidingMenu.closeMenu();
-                    } else {
-                        slidingMenu.openMenu();
+                    SlidingMenu slidingMenu = ((HomeActivity) mContext).getSlidingMenu();
+                    if (slidingMenu != null) {
+                        if (slidingMenu.isOpen()) {
+                            slidingMenu.closeMenu();
+                        } else {
+                            slidingMenu.openMenu();
+                        }
+                    }
+                } else {
+                    DrawerLayout drawerLayout = ((HomeActivity) mContext).getDrawerLayout();
+                    if (drawerLayout != null) {
+                        if (drawerLayout.isDrawerOpen(Gravity.RIGHT)) {
+                            drawerLayout.closeDrawers();
+                        } else {
+                            drawerLayout.openDrawer(Gravity.RIGHT);
+                        }
+                    }
+                    SlidingMenuRight slidingMenuRight = ((HomeActivity) mContext).getSlidingMenuRight();
+                    if (slidingMenuRight != null) {
+                        if (slidingMenuRight.isOpen()) {
+                            slidingMenuRight.closeMenu();
+                        } else {
+                            slidingMenuRight.openMenu();
+                        }
                     }
                 }
                 break;

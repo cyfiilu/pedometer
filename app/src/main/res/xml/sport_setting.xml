@@ -9,7 +9,7 @@
         <com.iilu.fendou.preference.MainPreference
             android:key="day_goal_stepnum"
             preference:img_right="@mipmap/arrow_right_1"
-            preference:tv_left="每日目标步数" />
+            preference:tv_left="每天目标步数" />
 
         <com.iilu.fendou.preference.MainPreference
             android:key="user_weight"
@@ -25,11 +25,11 @@
     <PreferenceCategory
         android:layout="@layout/prefs_category_widget_2"
         android:icon="@mipmap/morining"
-        android:title="朝朝">
+        android:title="早晨">
         <com.iilu.fendou.preference.MainPreference
             android:key="zhaozhao_time"
             preference:img_right="@mipmap/arrow_right_1"
-            preference:tv_left="执行时间"  />
+            preference:tv_left="时间"  />
 
         <com.iilu.fendou.preference.MainPreference
             android:key="zhaozhao_goal_stepnum"
@@ -40,11 +40,11 @@
     <PreferenceCategory
         android:layout="@layout/prefs_category_widget_2"
         android:icon="@mipmap/evening"
-        android:title="暮暮">
+        android:title="傍晚">
         <com.iilu.fendou.preference.MainPreference
             android:key="mumu_time"
             preference:img_right="@mipmap/arrow_right_1"
-            preference:tv_left="执行时间"  />
+            preference:tv_left="时间"  />
 
         <com.iilu.fendou.preference.MainPreference
             android:key="mumu_goal_stepnum"

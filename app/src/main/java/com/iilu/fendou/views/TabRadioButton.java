@@ -22,7 +22,11 @@ public class TabRadioButton extends RadioButton {
 
     public TabRadioButton(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        Drawable drawableLeft = null, drawableTop = null, drawableRight = null, drawableBottom = null;
+        Drawable drawableLeft = null;
+        Drawable drawableTop = null;
+        Drawable drawableRight = null;
+        Drawable drawableBottom = null;
+
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.TabRadioButton);
 
         int n = a.getIndexCount();

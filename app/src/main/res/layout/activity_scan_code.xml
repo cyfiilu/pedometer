@@ -3,9 +3,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/tv_status_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/status_bar_height"
+        android:background="@color/blue_light"
+        android:elevation="@dimen/dimen_4dp"
+        android:fitsSystemWindows="true"/>
+
     <include
         android:id="@+id/scan_code_title"
-        layout="@layout/title_main" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/title_main"
+        android:layout_below="@+id/tv_status_bar"/>
 
     <SurfaceView
         android:id="@+id/surface_view"

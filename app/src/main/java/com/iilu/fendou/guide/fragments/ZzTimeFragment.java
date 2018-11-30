@@ -15,7 +15,7 @@ public class ZzTimeFragment extends DayGoalNumFragment {
 
     private int[] CURR_ITEM = new int[]{1, 4};
 
-    private String SETTING_TAG = "朝朝时间：";
+    private String SETTING_TAG = "早晨时间：";
     private String UNIT = "";
     private String mFixedSuffix = ""; // 固定后缀
 

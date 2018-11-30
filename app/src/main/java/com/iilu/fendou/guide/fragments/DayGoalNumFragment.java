@@ -28,7 +28,7 @@ public class DayGoalNumFragment extends GuideBaseFragment {
     private String[] mArgs_2;
     private String[] mArgs_3;
 
-    private String SETTING_TAG = "每日目标：";
+    private String SETTING_TAG = "每天目标：";
     private String UNIT = " 步";
     private String mValue;
     private String mFixedSuffix = "000"; // 固定后缀

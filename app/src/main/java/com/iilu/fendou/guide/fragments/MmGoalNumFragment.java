@@ -15,7 +15,7 @@ public class MmGoalNumFragment extends DayGoalNumFragment {
 
     private int[] CURR_ITEM = new int[]{1, 0};
 
-    private String SETTING_TAG = "暮暮目标：";
+    private String SETTING_TAG = "傍晚目标：";
     private String UNIT = " 步";
     private String mFixedSuffix = "00"; // 固定后缀
 

@@ -2,6 +2,7 @@ package com.iilu.fendou.modules.message.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -23,6 +24,7 @@ import com.hyphenate.chat.EMClient;
 import com.hyphenate.exceptions.HyphenateException;
 import com.iilu.fendou.MainActivity;
 import com.iilu.fendou.R;
+import com.iilu.fendou.utils.StatusBarUtil;
 import com.iilu.fendou.utils.ToastUtil;
 
 import org.apache.log4j.Logger;
@@ -41,23 +43,24 @@ public class AddFriendActivity extends MainActivity implements View.OnClickListe
     private EditText mInput;
     private TextView mEmpty;
 
-    private Handler mHandler = new Handler() {
+    private Handler mHandler = new Handler(new Handler.Callback() {
         @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
+        public boolean handleMessage(Message msg) {
             switch (msg.what) {
                 case MSG_DELETE_SUCCESS:
                     ToastUtil.showCenter(AddFriendActivity.this, "删除成功！");
                     initDatas();
                     break;
             }
+            return false;
         }
-    };
+    });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_friend);
+        StatusBarUtil.compat(this, Color.TRANSPARENT);
 
         initViews();
 

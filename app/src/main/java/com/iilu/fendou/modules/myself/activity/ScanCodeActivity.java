@@ -1,6 +1,7 @@
 package com.iilu.fendou.modules.myself.activity;
 
 import android.content.res.AssetFileDescriptor;
+import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import com.iilu.fendou.R;
 import com.iilu.fendou.scancode.camera.CameraManager;
 import com.iilu.fendou.scancode.decoding.CaptureActivityHandler;
 import com.iilu.fendou.scancode.views.ViewfinderView;
+import com.iilu.fendou.utils.StatusBarUtil;
 import com.iilu.fendou.utils.ToastUtil;
 
 import org.apache.log4j.Logger;
@@ -54,6 +56,7 @@ public class ScanCodeActivity extends MainActivity implements SurfaceHolder.Call
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan_code);
+        StatusBarUtil.compat(this, Color.TRANSPARENT);
 
         initViews();
 

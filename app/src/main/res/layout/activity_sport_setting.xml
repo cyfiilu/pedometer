@@ -5,6 +5,14 @@
     android:background="@color/gray_light"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/tv_status_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/status_bar_height"
+        android:background="@color/blue_light"
+        android:elevation="@dimen/dimen_4dp"
+        android:fitsSystemWindows="true"/>
+
     <include
         android:id="@+id/pref_title"
         layout="@layout/title_main" />
@@ -12,13 +20,17 @@
     <com.ybao.pullrefreshview.layout.FlingLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <com.iilu.fendou.views.NoScrollListview
-            android:id="@android:id/list"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:listSelector="@drawable/selector_item_main" />
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+            <LinearLayout
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            </LinearLayout>
+        </ScrollView>
     </com.ybao.pullrefreshview.layout.FlingLayout>
 
 </LinearLayout>

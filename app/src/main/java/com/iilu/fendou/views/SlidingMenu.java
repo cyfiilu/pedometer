@@ -87,11 +87,11 @@ public class SlidingMenu extends HorizontalScrollView {
         /*Point outSize = new Point();
         wm.getDefaultDisplay().getSize(outSize);
         int screenWidth1 = outSize.x;
-        Log.d(TAG, "SlidingMenu: screenWidth1 = " + screenWidth1);
+        LogUtil.d(TAG, "SlidingMenu: screenWidth1 = " + screenWidth1);
 
         DisplayMetrics metrics = getResources().getDisplayMetrics();
         int screenWidth2 = metrics.widthPixels;
-        Log.d(TAG, "SlidingMenu: screenWidth2 = " + screenWidth2);*/
+        LogUtil.d(TAG, "SlidingMenu: screenWidth2 = " + screenWidth2);*/
     }
 
     /**
@@ -164,12 +164,16 @@ public class SlidingMenu extends HorizontalScrollView {
                 if (scrollX >= mMenuWidth / 2) {
                     this.smoothScrollTo(mMenuWidth, 0); //代表隐藏
                     isOpen = false;
-                    mSlidingMenuListener.close();
+                    if (mSlidingMenuListener != null) {
+                        mSlidingMenuListener.close();
+                    }
                     mlog.info("Touch action up isOpen=false...");
                 } else {
                     this.smoothScrollTo(0, 0); // 代表menu打开
                     isOpen = true;
-                    mSlidingMenuListener.open();
+                    if (mSlidingMenuListener != null) {
+                        mSlidingMenuListener.open();
+                    }
                     mlog.info("Touch action up isOpen=true...");
                 }
                 return true;

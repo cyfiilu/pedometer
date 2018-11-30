@@ -6,5 +6,7 @@
     <dimen name="pull_to_refresh_last_refresh_time_top_margin">6dp</dimen>
     <dimen name="pull_to_refresh_last_refresh_time_text_size">10sp</dimen>
 
+    <dimen name="status_bar_height">23dp</dimen>
     <dimen name="stroke_width_1">1dp</dimen>
+    <dimen name="dimen_4dp">4dp</dimen>
 </resources>

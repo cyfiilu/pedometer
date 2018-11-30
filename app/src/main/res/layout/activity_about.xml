@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/gray_light">
+
+    <TextView
+        android:id="@+id/tv_status_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/status_bar_height"
+        android:background="@color/blue_light"
+        android:elevation="@dimen/dimen_4dp"
+        android:fitsSystemWindows="true"/>
 
     <include
         android:id="@+id/about_title"
-        layout="@layout/title_main" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_status_bar"
+        layout="@layout/title_main"/>
 
     <ImageView
         android:id="@+id/iv_app_icon"
@@ -89,10 +101,13 @@
         android:text="@string/rights_reserved"
         android:textSize="14sp" />
 
-    <Button
-        android:id="@+id/btn_check_new_versin"
+    <TextView
+        android:id="@+id/tv_check_new_versin"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:gravity="center"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="40dp"
         android:background="@drawable/selector_btn_blue"

@@ -1,8 +1,17 @@
 package com.iilu.fendou.modules.myself.fragment;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceFragment;
+import android.preference.Preference;
 import android.preference.PreferenceScreen;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,18 +19,28 @@ import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import com.iilu.fendou.MainPreferenceFragment;
 import com.iilu.fendou.R;
+import com.iilu.fendou.modules.myself.activity.ScanCodeActivity;
+import com.iilu.fendou.preference.MainPreference;
+import com.iilu.fendou.utils.PermissionUtil;
+import com.iilu.fendou.utils.SystemUtil;
 
 import org.apache.log4j.Logger;
 
-public class MyselfFragment_1 extends PreferenceFragment {
+public class MyselfFragment_1 extends MainPreferenceFragment {
 
     private Logger mlog = Logger.getLogger(MyselfFragment_1.class.getSimpleName());
+
+    private Activity mActivity;
+    private MainPreference mPreScanCode;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.myself_fragment_1);
+        mActivity = getActivity();
+        mPreScanCode = (MainPreference) findPreference("scan_code");
     }
 
     @Override
@@ -34,6 +53,16 @@ public class MyselfFragment_1 extends PreferenceFragment {
         View view = inflater.inflate(R.layout.fragment_myself_1, container, false);
 
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        View rootView = getView();
+        ListView list = (ListView) rootView.findViewById(android.R.id.list);
+        list.setDivider(new ColorDrawable(getResources().getColor(R.color.gray_D5)));
+        list.setDividerHeight(SystemUtil.dip2px(mActivity, 0.5f));
+        list.setVerticalScrollBarEnabled(false);
     }
 
     private View init(View view) {
@@ -70,6 +99,25 @@ public class MyselfFragment_1 extends PreferenceFragment {
         ViewGroup.LayoutParams params = listView.getLayoutParams();
         params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
         listView.setLayoutParams(params);
+    }
+
+    @Override
+    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
+        if (mPreScanCode == preference) {
+            if (!PermissionUtil.checkPermission(getActivity(), new String[] {Manifest.permission.CAMERA})) {
+                PermissionUtil.requestPermission(getActivity(),
+                        new String[]{Manifest.permission.CAMERA}, 0x002);
+            }
+        }
+        return super.onPreferenceTreeClick(preferenceScreen, preference);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 0x002 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            startActivity(new Intent(getActivity(), ScanCodeActivity.class));
+        }
     }
 
     @Override

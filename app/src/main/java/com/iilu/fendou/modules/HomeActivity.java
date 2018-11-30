@@ -1,7 +1,15 @@
 package com.iilu.fendou.modules;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -17,6 +25,7 @@ import com.hyphenate.chat.EMMessage;
 import com.iilu.fendou.MainApplication;
 import com.iilu.fendou.MainFragmentActivity;
 import com.iilu.fendou.R;
+import com.iilu.fendou.configs.LogConfig;
 import com.iilu.fendou.configs.PrefsConfig;
 import com.iilu.fendou.dbs.MsgAddFriendDB;
 import com.iilu.fendou.interfaces.SlidingMenuListener;
@@ -26,7 +35,9 @@ import com.iilu.fendou.modules.fragment.MyselfFragment;
 import com.iilu.fendou.modules.fragment.SportFragment;
 import com.iilu.fendou.modules.message.entity.EasemobAddFriend;
 import com.iilu.fendou.modules.myself.dialog.AppIntroduceDialog;
+import com.iilu.fendou.utils.PermissionUtil;
 import com.iilu.fendou.utils.SPrefUtil_2;
+import com.iilu.fendou.utils.StatusBarUtil;
 import com.iilu.fendou.views.MainViewPager_1;
 import com.iilu.fendou.views.SlidingMenu;
 import com.iilu.fendou.views.SlidingMenuRight;
@@ -44,6 +55,7 @@ public class HomeActivity extends MainFragmentActivity implements View.OnClickLi
 
     private String mUserid = MainApplication.getCurrLoginUsername();
 
+    private Activity mContext;
     private SlidingMenu mSlidingMenu;
     private SlidingMenuRight mSlidingMenuRight;
     private DrawerLayout mDrawerLayout;
@@ -63,7 +75,39 @@ public class HomeActivity extends MainFragmentActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mContext = this;
+        StatusBarUtil.compat(mContext, Color.TRANSPARENT);
 
+        if (!PermissionUtil.checkPermission(this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE})) {
+            PermissionUtil.requestPermission(this,
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    0x001);
+        }
+
+        initLayout();
+
+        initViews();
+
+        initDrawerLayout();
+
+        setTabRadioButtonListener();
+
+        setListener();
+
+        EMClient.getInstance().contactManager().setContactListener(mEmContactListener);
+        EMClient.getInstance().chatManager().addMessageListener(mEmMessageListener);
+
+        EventBus.getDefault().register(this);
+        mMsgAddFriendDB = new MsgAddFriendDB(this);
+
+        boolean isNeedShowAppIntroduce = SPrefUtil_2.get(this, PrefsConfig.APP_CONST, mUserid + "_needshow_appintroduce", true);
+        if (isNeedShowAppIntroduce) {
+            new AppIntroduceDialog(this, R.style.NewDialogSytle).show();
+            SPrefUtil_2.put(this, PrefsConfig.APP_CONST, mUserid + "_needshow_appintroduce", false);
+        }
+    }
+
+    private void initLayout() {
         boolean isLeftSliding = SPrefUtil_2.get(this, PrefsConfig.APP_CONST, "isLeftSliding", true);
         boolean isDrawerLayout = SPrefUtil_2.get(this, PrefsConfig.APP_CONST, "isDrawerLayout", true);
         if (isLeftSliding) {
@@ -81,53 +125,6 @@ public class HomeActivity extends MainFragmentActivity implements View.OnClickLi
             }
             mSlidingMenuRight = (SlidingMenuRight) findViewById(R.id.sliding_menu_right);
         }
-
-        mMsgAddFriendDB = new MsgAddFriendDB(this);
-
-        initViews();
-
-        if (isDrawerLayout) {
-            initDrawerLayout();
-        }
-
-        setTabRadioButtonListener();
-
-        setListener();
-
-        EMClient.getInstance().contactManager().setContactListener(mEmContactListener);
-        EMClient.getInstance().chatManager().addMessageListener(mEmMessageListener);
-        EventBus.getDefault().register(this);
-
-        boolean isNeedShowAppIntroduce = SPrefUtil_2.get(this, PrefsConfig.APP_CONST, mUserid + "_needshow_appintroduce", true);
-        if (isNeedShowAppIntroduce) {
-            new AppIntroduceDialog(this, R.style.NewDialogSytle).show();
-            SPrefUtil_2.put(this, PrefsConfig.APP_CONST, mUserid + "_needshow_appintroduce", false);
-        }
-    }
-
-    private void initDrawerLayout() {
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, null, R.string.open, R.string.close) {
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-            }
-
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                super.onDrawerClosed(drawerView);
-            }
-        };
-        drawerToggle.syncState();
-        mDrawerLayout.setDrawerListener(drawerToggle);
-    }
-
-    public DrawerLayout getDrawerLayout() {
-        return mDrawerLayout;
-    }
-
-    public SlidingMenu getSlidingMenu() {
-        return mSlidingMenu;
     }
 
     private void initViews() {
@@ -145,6 +142,26 @@ public class HomeActivity extends MainFragmentActivity implements View.OnClickLi
         mBtnRadioMyself = (TabRadioButton) mRadioGroup.findViewById(R.id.btn_radio_myself);
 
         mBtnRadioSport.setChecked(true);
+    }
+
+    private void initDrawerLayout() {
+        boolean isDrawerLayout = SPrefUtil_2.get(this, PrefsConfig.APP_CONST, "isDrawerLayout", true);
+        if (isDrawerLayout) {
+            mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+            ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, null, R.string.open, R.string.close) {
+                @Override
+                public void onDrawerOpened(View drawerView) {
+                    super.onDrawerOpened(drawerView);
+                }
+
+                @Override
+                public void onDrawerClosed(View drawerView) {
+                    super.onDrawerClosed(drawerView);
+                }
+            };
+            drawerToggle.syncState();
+            mDrawerLayout.addDrawerListener(drawerToggle);
+        }
     }
 
     private void setTabRadioButtonListener() {
@@ -185,6 +202,24 @@ public class HomeActivity extends MainFragmentActivity implements View.OnClickLi
                 }
             });
         }
+        if (mSlidingMenuRight != null) {
+            final MainViewPager_1 viewPager = ((SportFragment) mSportFragment).getViewPager();
+            mSlidingMenuRight.setSlidingMenuListener(new SlidingMenuListener() {
+                @Override
+                public void open() {
+                    if (viewPager != null) {
+                        viewPager.setScanScroll(false);
+                    }
+                }
+
+                @Override
+                public void close() {
+                    if (viewPager != null) {
+                        viewPager.setScanScroll(true);
+                    }
+                }
+            });
+        }
     }
 
     private void switchFragment(Fragment toFragment) {
@@ -203,6 +238,22 @@ public class HomeActivity extends MainFragmentActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()) {
 
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 0x001) {
+            try {
+                LogConfig.configure();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            if (mCurrFragment != null && mCurrFragment instanceof MyselfFragment) {
+                mMyselfFragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
+            }
         }
     }
 
@@ -236,6 +287,26 @@ public class HomeActivity extends MainFragmentActivity implements View.OnClickLi
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EMClient.getInstance().contactManager().removeContactListener(mEmContactListener);
+        EMClient.getInstance().chatManager().removeMessageListener(mEmMessageListener);
+        EventBus.getDefault().unregister(this);
+    }
+
+    public DrawerLayout getDrawerLayout() {
+        return mDrawerLayout;
+    }
+
+    public SlidingMenu getSlidingMenu() {
+        return mSlidingMenu;
+    }
+
+    public SlidingMenuRight getSlidingMenuRight() {
+        return mSlidingMenuRight;
     }
 
     private EMContactListener mEmContactListener = new EMContactListener() {
@@ -327,13 +398,5 @@ public class HomeActivity extends MainFragmentActivity implements View.OnClickLi
         if ("from_AddFriendActivity".equals(event)) {
             ((MessageFragment) mMessageFragment).onRefresh();
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        EMClient.getInstance().contactManager().removeContactListener(mEmContactListener);
-        EMClient.getInstance().chatManager().removeMessageListener(mEmMessageListener);
-        EventBus.getDefault().unregister(this);
     }
 }

@@ -2,7 +2,9 @@
 <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fendou="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
+    android:layout_height="wrap_content"
+    android:paddingTop="3dp"
+    android:paddingBottom="3dp"
     android:background="@color/blue_light"
     android:gravity="center_vertical"
     android:orientation="horizontal">
@@ -17,6 +19,7 @@
         android:textSize="14sp"
         android:textColor="@drawable/selector_text_color"
         android:gravity="center"
+        android:drawablePadding="-2dp"
         fendou:drawableButtonSize="25dp"
         fendou:drawableTop="@drawable/selector_btn_sport"/>
 
@@ -30,6 +33,7 @@
         android:textSize="14sp"
         android:textColor="@drawable/selector_text_color"
         android:gravity="center"
+        android:drawablePadding="-2dp"
         fendou:drawableButtonSize="25dp"
         fendou:drawableTop="@drawable/selector_btn_message"/>
 
@@ -43,6 +47,7 @@
         android:textSize="14sp"
         android:textColor="@drawable/selector_text_color"
         android:gravity="center"
+        android:drawablePadding="-2dp"
         fendou:drawableButtonSize="25dp"
         fendou:drawableTop="@drawable/selector_btn_myself"/>
 </RadioGroup>

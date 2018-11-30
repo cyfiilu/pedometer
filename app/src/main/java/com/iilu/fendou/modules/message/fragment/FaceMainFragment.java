@@ -128,7 +128,7 @@ public class FaceMainFragment extends ChatBottomFragmentBase {
 
         mFaceViewPagerAdapter = new ViewPagerAdapter(getFragmentManager(), mFaceFragments);
         mFaceViewPager.setAdapter(mFaceViewPagerAdapter);
-        mFaceViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        mFaceViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -222,7 +222,7 @@ public class FaceMainFragment extends ChatBottomFragmentBase {
 
         mMoreViewPagerAdapter = new ViewPagerAdapter(getFragmentManager(), mMoreFragments);
         mMoreViewPager.setAdapter(mMoreViewPagerAdapter);
-        mMoreViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        mMoreViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             int oldPagerPos = 0;
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

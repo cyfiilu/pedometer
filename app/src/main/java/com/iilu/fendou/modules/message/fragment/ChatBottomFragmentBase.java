@@ -146,7 +146,7 @@ public class ChatBottomFragmentBase extends MainFragment implements View.OnClick
                 .bindToVoiceImageView(mImgVoice)
                 .bindToEditText(mInput) // 判断绑定那种EditView
                 .bindToFaceImageView(mImgFace) // 绑定表情按钮
-                .setMoreView(view.findViewById(R.id.msg_chat_more_layout)) // 绑定更多面板
+                .setMoreView(view.findViewById(R.id.more_layout)) // 绑定更多面板
                 .bindToMoreImageView(mImgMore) // 绑定更多按钮
                 .build();
 

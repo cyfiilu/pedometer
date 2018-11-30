@@ -1,19 +1,25 @@
-package com.iilu.fendou.ads;
+package com.iilu.fendou;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.ContextWrapper;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.TextView;
 
-import com.iilu.fendou.MainActivity;
-import com.iilu.fendou.R;
 import com.iilu.fendou.modules.login.LoginActivity;
+import com.iilu.fendou.utils.StatusBarUtil;
 
 import org.apache.log4j.Logger;
 
@@ -23,24 +29,28 @@ public class ADActivity extends MainActivity {
 
     private final int MSG_START_GUIDE_ACTIVITY = 0x00001;
 
-    private Button mSkip;
+    private TextView mSkip;
     private TextView mCopyRight;
 
-    private Handler mHandler = new Handler() {
+    private Handler mHandler = new Handler(new Handler.Callback() {
         @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
+        public boolean handleMessage(Message msg) {
             startActivity();
             finish();
+            return false;
         }
-    };
+    });
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ad);
+        StatusBarUtil.compat(this, Color.TRANSPARENT);
+        initView();
+    }
 
-        mSkip = (Button) findViewById(R.id.btn_skip);
+    private void initView() {
+        mSkip = (TextView) findViewById(R.id.tv_skip);
         mCopyRight = (TextView) findViewById(R.id.tv_copy_right);
 
         TextView ad_1 = (TextView) findViewById(R.id.tv_ad_1);
@@ -77,7 +87,6 @@ public class ADActivity extends MainActivity {
                 finish();
             }
         });
-
     }
 
     private void startActivity() {

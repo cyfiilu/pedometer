@@ -7,7 +7,7 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="25dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
         android:layout_weight="1"
@@ -16,13 +16,15 @@
         android:textColor="@color/gray_1"
         android:textSize="15sp" />
 
-    <Button
-        android:id="@+id/btn_logout"
+    <TextView
+        android:id="@+id/tv_logout"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:layout_weight="1"
         android:background="@drawable/selector_cancel"
         android:gravity="center"
@@ -30,14 +32,16 @@
         android:textColor="@color/gray_1"
         android:textSize="15sp" />
 
-    <Button
-        android:id="@+id/btn_cancel"
+    <TextView
+        android:id="@+id/tv_cancel"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:layout_weight="1"
         android:background="@drawable/selector_green"
         android:gravity="center"

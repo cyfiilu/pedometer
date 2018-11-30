@@ -34,6 +34,7 @@ import com.iilu.fendou.modules.message.dialog.ChatFaceSettingDialog;
 import com.iilu.fendou.modules.myself.dialog.AppIntroduceDialog;
 import com.iilu.fendou.utils.BitmapUtil;
 import com.iilu.fendou.utils.SPrefUtil_2;
+import com.iilu.fendou.utils.StatusBarUtil;
 import com.iilu.fendou.utils.SystemUtil;
 
 import java.io.File;
@@ -80,6 +81,7 @@ public class MenuFragment extends MainFragment implements View.OnClickListener {
             view = inflater.inflate(R.layout.fragment_right_menu, container, false);
         }
 
+        StatusBarUtil.compat(getActivity(), getResources().getColor(R.color.white));
         EventBus.getDefault().register(this);
         initViews(view);
 

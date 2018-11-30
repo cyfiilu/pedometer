@@ -1,6 +1,7 @@
 package com.iilu.fendou.guide;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -28,6 +29,7 @@ import com.iilu.fendou.modules.HomeActivity;
 import com.iilu.fendou.modules.entity.UserInfo;
 import com.iilu.fendou.utils.ParseUtil;
 import com.iilu.fendou.utils.SPrefUtil_2;
+import com.iilu.fendou.utils.StatusBarUtil;
 import com.iilu.fendou.views.MainViewPager;
 
 import org.apache.log4j.Logger;
@@ -59,6 +61,7 @@ public class GuideActivity extends MainFragmentActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guide);
+        StatusBarUtil.compat(this, Color.TRANSPARENT);
 
         initDatas();
         initViews();
@@ -66,7 +69,7 @@ public class GuideActivity extends MainFragmentActivity implements View.OnClickL
         mViewPager = (MainViewPager) findViewById(R.id.guide_view_pager);
         mViewPager.setAdapter(mAdapter);
 
-        mViewPager.setOnPageChangeListener(mPageChangeListener);
+        mViewPager.addOnPageChangeListener(mPageChangeListener);
 
     }
 

@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 
 import com.iilu.fendou.R;
 import com.iilu.fendou.configs.PrefsConfig;
+import com.iilu.fendou.interfaces.SlidingMenuListener;
 import com.iilu.fendou.utils.SPrefUtil_2;
 import com.nineoldandroids.view.ViewHelper;
 
@@ -29,6 +30,7 @@ public class SlidingMenuRight extends HorizontalScrollView {
     private View mMenu;
     private ViewGroup mContent;
     private GestureDetector mGestureDetector;
+    private SlidingMenuListener mSlidingMenuListener;
 
     private int mScreenWidth;
     private int mMenuWidth;
@@ -84,11 +86,11 @@ public class SlidingMenuRight extends HorizontalScrollView {
         /*Point outSize = new Point();
         wm.getDefaultDisplay().getSize(outSize);
         int screenWidth1 = outSize.x;
-        Log.d(TAG, "SlidingMenu: screenWidth1 = " + screenWidth1);
+        LogUtil.d(TAG, "SlidingMenu: screenWidth1 = " + screenWidth1);
 
         DisplayMetrics metrics = getResources().getDisplayMetrics();
         int screenWidth2 = metrics.widthPixels;
-        Log.d(TAG, "SlidingMenu: screenWidth2 = " + screenWidth2);*/
+        LogUtil.d(TAG, "SlidingMenu: screenWidth2 = " + screenWidth2);*/
     }
 
     /**
@@ -133,9 +135,15 @@ public class SlidingMenuRight extends HorizontalScrollView {
                 if (scrollX >= mMenuWidth / 2) {
                     this.smoothScrollTo(mMenuWidth, 0); //代表menu打开
                     isOpen = true;
+                    if (mSlidingMenuListener != null) {
+                        mSlidingMenuListener.open();
+                    }
                 } else {
                     this.smoothScrollTo(0, 0); // 代表隐藏
                     isOpen = false;
+                    if (mSlidingMenuListener != null) {
+                        mSlidingMenuListener.close();
+                    }
                 }
                 return true;
         }
@@ -196,6 +204,10 @@ public class SlidingMenuRight extends HorizontalScrollView {
             ViewHelper.setScaleX(mContent, leftScale);
             ViewHelper.setScaleY(mContent, leftScale);
         }
+    }
+
+    public void setSlidingMenuListener(SlidingMenuListener listener){
+        this.mSlidingMenuListener = listener;
     }
 
     /**

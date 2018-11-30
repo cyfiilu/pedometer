@@ -2,6 +2,7 @@ package com.iilu.fendou.modules.message.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.iilu.fendou.MainApplication;
 import com.iilu.fendou.R;
 import com.iilu.fendou.dbs.MsgAddFriendDB;
 import com.iilu.fendou.modules.message.entity.EasemobAddFriend;
+import com.iilu.fendou.utils.StatusBarUtil;
 
 import java.util.List;
 
@@ -35,6 +37,7 @@ public class RequestAddFriendActivity extends MainActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_add_friend);
+        StatusBarUtil.compat(this, Color.TRANSPARENT);
 
         initDatas();
 

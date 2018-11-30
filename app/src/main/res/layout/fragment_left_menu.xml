@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.ybao.pullrefreshview.layout.FlingLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -11,6 +12,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_status_bar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/status_bar_height"
+                android:background="@color/white"
+                android:fitsSystemWindows="true"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -49,7 +57,7 @@
                 android:id="@+id/sliding_direction"
                 layout="@layout/item_main"
                 android:layout_width="match_parent"
-                android:layout_height="40dp" />
+                android:layout_height="wrap_content" />
 
             <include layout="@layout/line" />
 
@@ -57,7 +65,7 @@
                 android:id="@+id/sliding_style"
                 layout="@layout/item_main"
                 android:layout_width="match_parent"
-                android:layout_height="40dp" />
+                android:layout_height="wrap_content" />
 
             <include layout="@layout/line" />
 
@@ -65,7 +73,7 @@
                 android:id="@+id/sliding_menu_style"
                 layout="@layout/item_main"
                 android:layout_width="match_parent"
-                android:layout_height="40dp" />
+                android:layout_height="wrap_content" />
 
             <include layout="@layout/line" />
 
@@ -73,7 +81,7 @@
                 android:id="@+id/face_change_style"
                 layout="@layout/item_main"
                 android:layout_width="match_parent"
-                android:layout_height="40dp" />
+                android:layout_height="wrap_content" />
 
             <include layout="@layout/line" />
 
@@ -81,7 +89,7 @@
                 android:id="@+id/app_introduce"
                 layout="@layout/item_main"
                 android:layout_width="match_parent"
-                android:layout_height="40dp" />
+                android:layout_height="wrap_content" />
 
             <include layout="@layout/line" />
 

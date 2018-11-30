@@ -15,7 +15,7 @@ public class MmTimeFragment extends DayGoalNumFragment {
 
     private int[] CURR_ITEM = new int[]{1, 4};
 
-    private String SETTING_TAG = "暮暮时间：";
+    private String SETTING_TAG = "傍晚时间：";
     private String UNIT = "";
     private String mFixedSuffix = ""; // 固定后缀
 

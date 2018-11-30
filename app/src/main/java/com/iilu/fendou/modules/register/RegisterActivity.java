@@ -1,6 +1,7 @@
 package com.iilu.fendou.modules.register;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -15,6 +16,7 @@ import com.hyphenate.chat.EMClient;
 import com.hyphenate.exceptions.HyphenateException;
 import com.iilu.fendou.MainActivity;
 import com.iilu.fendou.R;
+import com.iilu.fendou.utils.StatusBarUtil;
 import com.iilu.fendou.utils.ToastUtil;
 
 public class RegisterActivity extends MainActivity implements View.OnClickListener {
@@ -26,26 +28,25 @@ public class RegisterActivity extends MainActivity implements View.OnClickListen
     private EditText mConfirmPassword;
     private Button mRegiest;
 
-    private Handler mHandler = new Handler() {
+    private Handler mHandler = new Handler(new Handler.Callback() {
         @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
+        public boolean handleMessage(Message msg) {
             switch (msg.what) {
                 case MSG_EMPETY:
                     ToastUtil.showCenter(RegisterActivity.this, "恭喜，注册成功！");
                     finish();
                     break;
             }
+            return false;
         }
-    };
+    });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
+        StatusBarUtil.compat(this, Color.TRANSPARENT);
         initViews();
-
     }
 
     private void initViews() {

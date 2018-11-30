@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.ybao.pullrefreshview.layout.FlingLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<com.ybao.pullrefreshview.layout.FlingLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_light" >
+    android:background="@color/gray_light">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -16,23 +15,25 @@
             android:orientation="vertical" >
 
             <fragment
-                android:name="com.iilu.fendou.modules.myself.fragment.PersonalCoverFragment"
                 android:id="@+id/personal_cover_fragment"
+                android:name="com.iilu.fendou.modules.myself.fragment.PersonalCoverFragment"
                 android:layout_width="match_parent"
-                android:layout_height="260dp"
-                tools:layout="@layout/fragment_personal_cover" />
+                android:layout_height="283dp"/>
 
             <fragment
-                android:name="com.iilu.fendou.modules.myself.fragment.MyselfFragment_1"
                 android:id="@+id/myself_fragment_1"
+                android:name="com.iilu.fendou.modules.myself.fragment.MyselfFragment_1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"/>
 
-            <Button
-                android:id="@+id/btn_login_out"
+            <TextView
+                android:id="@+id/tv_login_out"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="wrap_content"
                 android:text="@string/login_out"
+                android:gravity="center"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="30dp"

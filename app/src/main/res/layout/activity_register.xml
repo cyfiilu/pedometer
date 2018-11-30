@@ -2,8 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray_light"
     android:paddingLeft="20dp"
-    android:paddingRight="20dp" >
+    android:paddingRight="20dp">
+
+    <TextView
+        android:id="@+id/tv_status_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/status_bar_height"
+        android:background="@color/gray_light"
+        android:fitsSystemWindows="true"/>
 
     <EditText
         android:id="@+id/et_username"
