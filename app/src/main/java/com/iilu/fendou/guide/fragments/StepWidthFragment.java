@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.iilu.fendou.R;
+
 public class StepWidthFragment extends HeightFragment {
 
     private String SETTING_TAG = "步幅：";
@@ -17,8 +19,9 @@ public class StepWidthFragment extends HeightFragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        init(mArgs_1, CURR_ITEM, SETTING_TAG, UNIT);
         super.onCreate(savedInstanceState);
+        SETTING_TAG = getResources().getString(R.string.step_width) + "：";
+        init(mArgs_1, CURR_ITEM, SETTING_TAG, UNIT);
     }
 
     @Nullable

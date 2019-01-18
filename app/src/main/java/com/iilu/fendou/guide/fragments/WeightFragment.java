@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.iilu.fendou.R;
+
 public class WeightFragment extends HeightFragment {
 
     private String SETTING_TAG = "体重：";
@@ -15,8 +17,9 @@ public class WeightFragment extends HeightFragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        init(mArgs_1, CURR_ITEM, SETTING_TAG, UNIT);
         super.onCreate(savedInstanceState);
+        SETTING_TAG = getResources().getString(R.string.weight) + "：";
+        init(mArgs_1, CURR_ITEM, SETTING_TAG, UNIT);
     }
 
     @Nullable

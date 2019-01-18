@@ -15,7 +15,7 @@ public class ZzTimeFragment extends DayGoalNumFragment {
 
     private int[] CURR_ITEM = new int[]{1, 4};
 
-    private String SETTING_TAG = "早晨时间：";
+    private String SETTING_TAG = "运动时间一：";
     private String UNIT = "";
     private String mFixedSuffix = ""; // 固定后缀
 
@@ -25,8 +25,9 @@ public class ZzTimeFragment extends DayGoalNumFragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        init(mResId_1, mResId_2, CURR_ITEM, mUnit_1, mUnit_2, mUnit_3, SETTING_TAG, UNIT, mFixedSuffix, true);
         super.onCreate(savedInstanceState);
+        SETTING_TAG = getResources().getString(R.string.sport_time_1) + "：";
+        init(mResId_1, mResId_2, CURR_ITEM, mUnit_1, mUnit_2, mUnit_3, SETTING_TAG, UNIT, mFixedSuffix, true);
     }
 
     @Nullable

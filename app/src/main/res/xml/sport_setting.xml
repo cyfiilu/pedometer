@@ -4,52 +4,52 @@
 
     <PreferenceCategory
         android:layout="@layout/prefs_category_widget_2"
-        android:icon="@mipmap/base_info"
-        android:title="基本信息">
+        android:icon="@mipmap/app_icon"
+        android:title="@string/sport_setting_main_module">
         <com.iilu.fendou.preference.MainPreference
             android:key="day_goal_stepnum"
             preference:img_right="@mipmap/arrow_right_1"
-            preference:tv_left="每天目标步数" />
+            preference:tv_left="@string/day_goal" />
 
         <com.iilu.fendou.preference.MainPreference
             android:key="user_weight"
             preference:img_right="@mipmap/arrow_right_1"
-            preference:tv_left="体重"  />
+            preference:tv_left="@string/weight"  />
 
         <com.iilu.fendou.preference.MainPreference
             android:key="user_stepwidth"
             preference:img_right="@mipmap/arrow_right_1"
-            preference:tv_left="步幅" />
+            preference:tv_left="@string/step_width" />
     </PreferenceCategory>
 
     <PreferenceCategory
         android:layout="@layout/prefs_category_widget_2"
-        android:icon="@mipmap/morining"
-        android:title="早晨">
+        android:icon="@mipmap/app_icon"
+        android:title="@string/sport_setting_module_1">
         <com.iilu.fendou.preference.MainPreference
             android:key="zhaozhao_time"
             preference:img_right="@mipmap/arrow_right_1"
-            preference:tv_left="时间"  />
+            preference:tv_left="@string/sport_time_1"  />
 
         <com.iilu.fendou.preference.MainPreference
             android:key="zhaozhao_goal_stepnum"
             preference:img_right="@mipmap/arrow_right_1"
-            preference:tv_left="步数"  />
+            preference:tv_left="@string/sport_goal_1"  />
     </PreferenceCategory>
 
     <PreferenceCategory
         android:layout="@layout/prefs_category_widget_2"
-        android:icon="@mipmap/evening"
-        android:title="傍晚">
+        android:icon="@mipmap/app_icon"
+        android:title="@string/sport_setting_module_2">
         <com.iilu.fendou.preference.MainPreference
             android:key="mumu_time"
             preference:img_right="@mipmap/arrow_right_1"
-            preference:tv_left="时间"  />
+            preference:tv_left="@string/sport_time_2"  />
 
         <com.iilu.fendou.preference.MainPreference
             android:key="mumu_goal_stepnum"
             preference:img_right="@mipmap/arrow_right_1"
-            preference:tv_left="步数"  />
+            preference:tv_left="@string/sport_goal_2"  />
     </PreferenceCategory>
 
 </PreferenceScreen>

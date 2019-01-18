@@ -48,6 +48,7 @@ public class HeightFragment extends GuideBaseFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.SETTING_TAG = getResources().getString(R.string.height) + "：";
     }
 
     @Nullable

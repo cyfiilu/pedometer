@@ -15,7 +15,7 @@ public class MmGoalNumFragment extends DayGoalNumFragment {
 
     private int[] CURR_ITEM = new int[]{1, 0};
 
-    private String SETTING_TAG = "傍晚目标：";
+    private String SETTING_TAG = "目标二：";
     private String UNIT = " 步";
     private String mFixedSuffix = "00"; // 固定后缀
 
@@ -25,8 +25,9 @@ public class MmGoalNumFragment extends DayGoalNumFragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        init(mResId_1, mResId_2, CURR_ITEM, mUnit_1, mUnit_2, mUnit_3, SETTING_TAG, UNIT, mFixedSuffix, false);
         super.onCreate(savedInstanceState);
+        SETTING_TAG = getResources().getString(R.string.sport_goal_2) + "：";
+        init(mResId_1, mResId_2, CURR_ITEM, mUnit_1, mUnit_2, mUnit_3, SETTING_TAG, UNIT, mFixedSuffix, false);
     }
 
     @Nullable

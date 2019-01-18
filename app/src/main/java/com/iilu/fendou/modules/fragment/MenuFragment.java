@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.Paint;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
@@ -130,7 +131,11 @@ public class MenuFragment extends MainFragment implements View.OnClickListener {
 
     private void initSlidingStyle(View view) {
         RelativeLayout slidingLayout = (RelativeLayout) view.findViewById(R.id.sliding_style);
-        slidingLayout.setBackgroundResource(R.drawable.selector_item_main);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            slidingLayout.setBackgroundResource(R.drawable.selector_ripple_white);
+        } else {
+            slidingLayout.setBackgroundResource(R.drawable.selector_item_main);
+        }
         slidingLayout.setOnClickListener(this);
         ImageView imgLeft = (ImageView) slidingLayout.findViewById(R.id.iv_left);
         imgLeft.setVisibility(View.GONE);
@@ -152,7 +157,11 @@ public class MenuFragment extends MainFragment implements View.OnClickListener {
 
     private void initSlidingDirection(View view) {
         RelativeLayout slidingDirectionLayout = (RelativeLayout) view.findViewById(R.id.sliding_direction);
-        slidingDirectionLayout.setBackgroundResource(R.drawable.selector_item_main);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            slidingDirectionLayout.setBackgroundResource(R.drawable.selector_ripple_white);
+        } else {
+            slidingDirectionLayout.setBackgroundResource(R.drawable.selector_item_main);
+        }
         slidingDirectionLayout.setOnClickListener(this);
         ImageView imgLeft_2 = (ImageView) slidingDirectionLayout.findViewById(R.id.iv_left);
         imgLeft_2.setVisibility(View.GONE);
@@ -174,7 +183,11 @@ public class MenuFragment extends MainFragment implements View.OnClickListener {
 
     private void initSlidingMenuStyle(View view) {
         RelativeLayout slidingMenuLayout = (RelativeLayout) view.findViewById(R.id.sliding_menu_style);
-        slidingMenuLayout.setBackgroundResource(R.drawable.selector_item_main);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            slidingMenuLayout.setBackgroundResource(R.drawable.selector_ripple_white);
+        } else {
+            slidingMenuLayout.setBackgroundResource(R.drawable.selector_item_main);
+        }
         slidingMenuLayout.setOnClickListener(this);
         ImageView imgLeft = (ImageView) slidingMenuLayout.findViewById(R.id.iv_left);
         imgLeft.setVisibility(View.GONE);
@@ -198,7 +211,11 @@ public class MenuFragment extends MainFragment implements View.OnClickListener {
 
     private void initFaceChangeStyle(View view) {
         RelativeLayout slidingDirectionLayout = (RelativeLayout) view.findViewById(R.id.face_change_style);
-        slidingDirectionLayout.setBackgroundResource(R.drawable.selector_item_main);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            slidingDirectionLayout.setBackgroundResource(R.drawable.selector_ripple_white);
+        } else {
+            slidingDirectionLayout.setBackgroundResource(R.drawable.selector_item_main);
+        }
         slidingDirectionLayout.setOnClickListener(this);
         ImageView imgLeft_2 = (ImageView) slidingDirectionLayout.findViewById(R.id.iv_left);
         imgLeft_2.setVisibility(View.GONE);
@@ -235,7 +252,11 @@ public class MenuFragment extends MainFragment implements View.OnClickListener {
 
     private void initAppIntroduce(View view) {
         RelativeLayout slidingMenuLayout = (RelativeLayout) view.findViewById(R.id.app_introduce);
-        slidingMenuLayout.setBackgroundResource(R.drawable.selector_item_main);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            slidingMenuLayout.setBackgroundResource(R.drawable.selector_ripple_white);
+        } else {
+            slidingMenuLayout.setBackgroundResource(R.drawable.selector_item_main);
+        }
         slidingMenuLayout.setOnClickListener(this);
         ImageView imgLeft = (ImageView) slidingMenuLayout.findViewById(R.id.iv_left);
         imgLeft.setVisibility(View.GONE);

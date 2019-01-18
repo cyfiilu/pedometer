@@ -2,6 +2,7 @@ package com.iilu.fendou.modules.myself.fragment;
 
 import android.app.Activity;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
@@ -95,6 +96,9 @@ public class PersonalInfoFragment extends MainPreferenceFragment implements View
         ListView list = (ListView) rootView.findViewById(android.R.id.list);
         list.setDivider(new ColorDrawable(getResources().getColor(R.color.gray_D5)));
         list.setDividerHeight(SystemUtil.dip2px(mActivity, 0.5f));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            list.setSelector(R.drawable.selector_ripple_white);
+        }
         list.setVerticalScrollBarEnabled(false);
     }
 

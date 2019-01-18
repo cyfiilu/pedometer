@@ -82,6 +82,8 @@ public class HomeActivity extends MainFragmentActivity implements View.OnClickLi
             PermissionUtil.requestPermission(this,
                     new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     0x001);
+        } else {
+            loggerConfigure();
         }
 
         initLayout();
@@ -241,15 +243,22 @@ public class HomeActivity extends MainFragmentActivity implements View.OnClickLi
         }
     }
 
+    /**
+     * 配置log4j
+     */
+    private void loggerConfigure() {
+        try {
+            LogConfig.configure();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 0x001) {
-            try {
-                LogConfig.configure();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            loggerConfigure();
         } else {
             if (mCurrFragment != null && mCurrFragment instanceof MyselfFragment) {
                 mMyselfFragment.onRequestPermissionsResult(requestCode, permissions, grantResults);

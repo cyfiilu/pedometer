@@ -307,13 +307,17 @@ public class ChatBottomFragmentBase extends MainFragment implements View.OnClick
     }
 
     private void doEndRecord() {
-        int length = mVoiceRecorder.stopRecoding();
-        if (length > 0) {
-            sendVoice(mVoiceRecorder.getVoiceFilePath(), length);
-        } else if (length == EMError.FILE_INVALID) {
-            ToastUtil.showCenter(mChatActivity, "录音无权限！");
-        } else {
-            ToastUtil.showCenter(mChatActivity, "录音时间太短！");
+        try {
+            int length = mVoiceRecorder.stopRecoding();
+            if (length > 0) {
+                sendVoice(mVoiceRecorder.getVoiceFilePath(), length);
+            } else if (length == EMError.FILE_INVALID) {
+                ToastUtil.showCenter(mChatActivity, "录音无权限！");
+            } else {
+                ToastUtil.showCenter(mChatActivity, "录音时间太短！");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

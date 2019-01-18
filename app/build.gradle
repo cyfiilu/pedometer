@@ -30,9 +30,10 @@ android {
         versionName "1.0.2"
         buildConfigField "String", "BUILD_TIMESTAMP", "\"" + new Date(System.currentTimeMillis()).toLocaleString() + "\""
 
-        ndk {
-            abiFilters /*"arm64-v8a", "armeabi-v7a", "x86",*/ "armeabi"
-        }
+        //but apk only supports armeabi
+        /*ndk {
+            abiFilters "arm64-v8a", "armeabi-v7a", "x86", "armeabi"
+        }*/
     }
 
     buildTypes {

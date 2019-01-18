@@ -62,6 +62,9 @@ public class MyselfFragment_1 extends MainPreferenceFragment {
         ListView list = (ListView) rootView.findViewById(android.R.id.list);
         list.setDivider(new ColorDrawable(getResources().getColor(R.color.gray_D5)));
         list.setDividerHeight(SystemUtil.dip2px(mActivity, 0.5f));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            list.setSelector(R.drawable.selector_ripple_white);
+        }
         list.setVerticalScrollBarEnabled(false);
     }
 

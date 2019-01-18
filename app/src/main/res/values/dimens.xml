@@ -9,4 +9,6 @@
     <dimen name="status_bar_height">23dp</dimen>
     <dimen name="stroke_width_1">1dp</dimen>
     <dimen name="dimen_4dp">4dp</dimen>
+
+    <dimen name="size_5dp">5.0dip</dimen>
 </resources>

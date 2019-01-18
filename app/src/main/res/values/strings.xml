@@ -8,6 +8,7 @@
 
     <string name="open">open</string>
     <string name="close">close</string>
+    <string name="height">身高</string>
     <string name="last">上一个</string>
     <string name="next_1">下一个</string>
     <string name="next_2">设置完成</string>
@@ -38,6 +39,7 @@
     <string name="add_friend">添加好友</string>
     <string name="complete">完成</string>
     <string name="confirm">确定</string>
+    <string name="km_cal">%1$skm / %2$skcal</string>
     <string name="sdcard_not_mounted">发送语音需要sdcard支持！</string>
     <string name="press_to_say">按住 说话</string>
     <string name="record_voice_duraion">%1$d\"</string>
@@ -51,8 +53,20 @@
     <string name="cancel">取消</string>
     <string name="logout">退出</string>
     <string name="logout_tip">确定退出登录？</string>
-    <string name="no_sdcard">没有sdcar</string>
+    <string name="no_sdcard">没有sdcard</string>
     <string name="login_out">退出登录</string>
+    <string name="sport_setting_main_module">主模块</string>
+    <string name="day_goal">每日目标</string>
+    <string name="weight">体重</string>
+    <string name="step_width">步幅</string>
+    <string name="sport_setting_module_1">模块一</string>
+    <string name="sport_time_1">运动时间一</string>
+    <string name="sport_goal_1">目标一</string>
+    <string name="sport_setting_module_2">模块二</string>
+    <string name="sport_time_2">运动时间二</string>
+    <string name="sport_goal_2">目标二</string>
+
+
     <string name="scan_code">扫一扫</string>
     <string name="app_about">关于</string>
     <string name="personal_info">个人信息</string>

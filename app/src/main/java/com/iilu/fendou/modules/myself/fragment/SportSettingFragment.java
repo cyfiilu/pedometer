@@ -2,6 +2,7 @@ package com.iilu.fendou.modules.myself.fragment;
 
 import android.app.Activity;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
@@ -81,25 +82,35 @@ public class SportSettingFragment extends MainPreferenceFragment implements View
         ListView list = (ListView) rootView.findViewById(android.R.id.list);
         list.setDivider(new ColorDrawable(getResources().getColor(R.color.gray_D5)));
         list.setDividerHeight(SystemUtil.dip2px(mActivity, 0.5f));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            list.setSelector(R.drawable.selector_ripple_white);
+        }
         list.setVerticalScrollBarEnabled(false);
     }
 
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
         if (mDayGoalStepNum == preference) {
-            motifyParameter(R.array.zero_to_three, R.array.zero_to_nine, -1, "每天目标步数", 1);
+            motifyParameter(R.array.zero_to_three, R.array.zero_to_nine, -1,
+                    getResources().getString(R.string.day_goal), 1);
         } else if (mUserWeight == preference) {
-            motifyParameter(R.array.zero_to_two, R.array.zero_to_nine, R.array.zero_to_nine, "体重", 2);
+            motifyParameter(R.array.zero_to_two, R.array.zero_to_nine, R.array.zero_to_nine,
+                    getResources().getString(R.string.weight), 2);
         } else if (mUserStepWidth == preference) {
-            motifyParameter(R.array.zero_to_one, R.array.zero_to_nine, R.array.zero_to_nine, "步幅", 3);
+            motifyParameter(R.array.zero_to_one, R.array.zero_to_nine, R.array.zero_to_nine,
+                    getResources().getString(R.string.step_width), 3);
         } else if (mZhaozhaoTime == preference) {
-            motifyParameter(R.array.zhaozhao_time_range, R.array.zhaozhao_time_range, -1, "\"早晨\"时间", 4);
+            motifyParameter(R.array.zhaozhao_time_range, R.array.zhaozhao_time_range, -1,
+                    getResources().getString(R.string.sport_time_1), 4);
         } else if (mZhaozhaoStepNum == preference) {
-            motifyParameter(R.array.three_to_eight, R.array.zero_to_nine, -1, "早晨步数", 5);
+            motifyParameter(R.array.three_to_eight, R.array.zero_to_nine, -1,
+                    getResources().getString(R.string.sport_goal_1), 5);
         } else if (mMumuTime == preference) {
-            motifyParameter(R.array.mumu_time_range, R.array.mumu_time_range, -1, "\"傍晚\"时间", 6);
+            motifyParameter(R.array.mumu_time_range, R.array.mumu_time_range, -1,
+                    getResources().getString(R.string.sport_time_2), 6);
         } else if (mMumuStepNum == preference) {
-            motifyParameter(R.array.three_to_eight, R.array.zero_to_nine, -1, "傍晚步数", 7);
+            motifyParameter(R.array.three_to_eight, R.array.zero_to_nine, -1,
+                    getResources().getString(R.string.sport_goal_2), 7);
         }
 
         return super.onPreferenceTreeClick(preferenceScreen, preference);
