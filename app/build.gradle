@@ -26,8 +26,8 @@ android {
         applicationId "com.iilu.fendou"
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 102
-        versionName "1.0.2"
+        versionCode 103
+        versionName "1.0.3"
         buildConfigField "String", "BUILD_TIMESTAMP", "\"" + new Date(System.currentTimeMillis()).toLocaleString() + "\""
 
         //but apk only supports armeabi
