@@ -32,8 +32,8 @@
    1) 布局中利用fragment标签，分开到CoverFragment 和 MyselfFragment_1这两个Fragment中，避免一个类中处理大量代码
    2) MyselfFragment_1模块采用自定义preference，将layout中一部分xml文件移至res/xml(直接指定启动意图)下，省去item的点击事件代码
    3) MyselfFragment_1模块计步器设置、扫一扫(依托于google.zxing封装)、app介绍、关于等功能
-   4) 计步器设置(SportSettingActivity)，继承PreferenceActivity，依然加载res/xml下的布局文件，重写onPreferenceTreeClick()方法处理点击事件，可对当前登录用户设置目标步数、体重、步幅、朝朝起止时间、朝朝目标部署、暮暮起止时间、暮暮目标步数进行设置
+   4) 计步器设置(SportSettingActivity)，内嵌PreferenceFragment，依然加载res/xml下的布局文件，重写onPreferenceTreeClick()方法处理点击事件，可对当前登录用户设置目标步数、体重、步幅、运动时间一、目标一、运动时间二、目标二等设置
    5) CoverFragment模块可设置封面 和 头像
-   6) 个人信息界面(PersonalInfoActivity)，继承PreferenceActivity，可设置性别、身高、体重、城市 以及 扫描二维码
+   6) 个人信息界面(PersonalInfoActivity)，内嵌PreferenceFragment，可设置性别、身高、体重、城市 以及 扫描二维码
 
 9. app仅以环信为服务器，记录的运动数据手机本地保存，卸载app数据将丢失。

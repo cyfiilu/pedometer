@@ -21,16 +21,18 @@ public class MainFragment extends Fragment {
      * @return
      */
     public static <T extends Fragment> T newInstance(Class clazz, Bundle args) {
-        T mFragment = null;
+        T fragment = null;
         try {
-            mFragment = (T) clazz.newInstance();
+            fragment = (T) clazz.newInstance();
         } catch (java.lang.InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
-        mFragment.setArguments(args);
-        return mFragment;
+        if (fragment != null) {
+            fragment.setArguments(args);
+        }
+        return fragment;
     }
 
     @Override

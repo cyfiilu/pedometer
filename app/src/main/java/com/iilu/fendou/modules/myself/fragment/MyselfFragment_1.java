@@ -94,7 +94,8 @@ public class MyselfFragment_1 extends MainPreferenceFragment {
 
         int totalHeight = 0;
         for (int i = 0; i < len; i++) {
-            View listItem = listAdapter.getView(i, null, listView);listItem.setMinimumHeight(50);
+            View listItem = listAdapter.getView(i, null, listView);
+            listItem.setMinimumHeight(50);
             listItem.measure(0, 0); // 计算子项View 的宽高
             totalHeight += listItem.getMeasuredHeight(); // 统计所有子项的总高度
         }

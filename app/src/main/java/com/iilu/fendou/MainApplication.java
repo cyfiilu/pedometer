@@ -63,7 +63,7 @@ public class MainApplication extends Application {
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 // 设置图片解码类型
                 .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
-                .considerExifParams(false)// 不考虑iamge的翻转
+                .considerExifParams(false)// 不考虑image的翻转
                 .build();
 
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(mContext)

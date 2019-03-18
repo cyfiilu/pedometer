@@ -80,13 +80,11 @@ public class LoginActivity extends MainActivity implements View.OnClickListener 
         mPassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE || event.getKeyCode() == KeyEvent.ACTION_DOWN
-                        || event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-                    login(false);
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    login();
                     return true;
-                } else {
-                    return false;
                 }
+                return false;
             }
         });
 
@@ -101,72 +99,70 @@ public class LoginActivity extends MainActivity implements View.OnClickListener 
                 startActivity(new Intent(this, RegisterActivity.class));
                 break;
             case R.id.btn_login:
-                login(true);
+                login();
                 break;
         }
     }
 
-    private void login(boolean isToLogin) {
-        if (isToLogin) {
-            //mLoginDB.queryUserLoginInfo("")
+    private void login() {
+        //mLoginDB.queryUserLoginInfo("")
 
-            final String username = mUserName.getText().toString().trim();
-            final String password = mPassword.getText().toString().trim();
+        final String username = mUserName.getText().toString().trim();
+        final String password = mPassword.getText().toString().trim();
 
-            if (TextUtils.isEmpty(username)) {
-                ToastUtil.showCenter(this, getResources().getString(R.string.user_name_not_null_tip));
-                return;
-            }
-            if (TextUtils.isEmpty(password)) {
-                ToastUtil.showCenter(this, getString(R.string.password_not_null_tip));
-                return;
-            }
-
-            final ProgressDialog progressDialog = new ProgressDialog(this);
-            progressDialog.setCanceledOnTouchOutside(false);
-            progressDialog.setCancelable(false);
-            progressDialog.setMessage(getString(R.string.is_logging));
-            progressDialog.show();
-
-            EMClient.getInstance().login(username, password, new EMCallBack() {
-                @Override
-                public void onSuccess() {
-                    mlog.info("环信登录成功!");
-                    if (progressDialog.isShowing()) {
-                        progressDialog.dismiss();
-                    }
-
-                    EMClient.getInstance().groupManager().loadAllGroups();
-                    EMClient.getInstance().chatManager().loadAllConversations();
-
-                    saveUserInfo(username, password);
-
-                    startActivity(username);
-
-                    finish();
-                }
-
-                @Override
-                public void onError(int code, final String error) {
-                    mlog.error("环信登录失败 code = " + code + ", error = " + error);
-                    if (progressDialog.isShowing()) {
-                        progressDialog.dismiss();
-                    }
-                    // 这些方法都在工作线程
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            ToastUtil.showCenter(LoginActivity.this, "登录失败：" + error);
-                        }
-                    });
-                }
-
-                @Override
-                public void onProgress(int progress, String status) {
-                    mlog.error("环信登录进度 progress = " + progress + ", status = " + status);
-                }
-            });
+        if (TextUtils.isEmpty(username)) {
+            ToastUtil.showCenter(this, getResources().getString(R.string.user_name_not_null_tip));
+            return;
         }
+        if (TextUtils.isEmpty(password)) {
+            ToastUtil.showCenter(this, getString(R.string.password_not_null_tip));
+            return;
+        }
+
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage(getString(R.string.is_logging));
+        progressDialog.show();
+
+        EMClient.getInstance().login(username, password, new EMCallBack() {
+            @Override
+            public void onSuccess() {
+                mlog.info("环信登录成功!");
+                if (progressDialog.isShowing()) {
+                    progressDialog.dismiss();
+                }
+
+                EMClient.getInstance().groupManager().loadAllGroups();
+                EMClient.getInstance().chatManager().loadAllConversations();
+
+                saveUserInfo(username, password);
+
+                startActivity(username);
+
+                finish();
+            }
+
+            @Override
+            public void onError(int code, final String error) {
+                mlog.error("环信登录失败 code = " + code + ", error = " + error);
+                if (progressDialog.isShowing()) {
+                    progressDialog.dismiss();
+                }
+                // 这些方法都在工作线程
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ToastUtil.showCenter(LoginActivity.this, "登录失败：" + error);
+                    }
+                });
+            }
+
+            @Override
+            public void onProgress(int progress, String status) {
+                mlog.error("环信登录进度 progress = " + progress + ", status = " + status);
+            }
+        });
     }
 
     private void saveUserInfo(String username, String password) {

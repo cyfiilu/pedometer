@@ -66,7 +66,7 @@ public class SlidingMenu extends HorizontalScrollView {
             switch (attr) {
                 case R.styleable.SlidingMenu_rightPadding:
                     mMenuRightPadding = a.getDimensionPixelSize(attr, defaultMenuRightPadding);
-                    mlog.debug("mMenuRightPadding = " + mMenuRightPadding);
+                    mlog.debug("SlidingMenu() mMenuRightPadding = " + mMenuRightPadding);
                     break;
             }
         }
@@ -82,7 +82,7 @@ public class SlidingMenu extends HorizontalScrollView {
         wm.getDefaultDisplay().getMetrics(outMetrics);
 
         mScreenWidth = outMetrics.widthPixels;
-        mlog.debug("mScreenWidth = " + mScreenWidth);
+        mlog.debug("SlidingMenu() mScreenWidth = " + mScreenWidth);
 
         /*Point outSize = new Point();
         wm.getDefaultDisplay().getSize(outSize);
@@ -103,6 +103,7 @@ public class SlidingMenu extends HorizontalScrollView {
      */
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        mlog.info("onMeasure once = " + once);
         if (!once) {
             mWrapper = (LinearLayout) getChildAt(0);
             mMenu = (ViewGroup) mWrapper.getChildAt(0);
@@ -110,7 +111,7 @@ public class SlidingMenu extends HorizontalScrollView {
 
             mMenuWidth = mMenu.getLayoutParams().width = mScreenWidth - mMenuRightPadding;
             mContent.getLayoutParams().width = mScreenWidth;
-            mlog.debug("mMenuWidth = " + mMenuWidth);
+            mlog.debug("onMeasure mMenuWidth = " + mMenuWidth);
             once = true;
         }
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
@@ -128,15 +129,15 @@ public class SlidingMenu extends HorizontalScrollView {
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
-        mlog.debug("onLayout changed = " + changed);
+        mlog.info("onLayout changed = " + changed);
         if (changed) {
-            mlog.debug("onLayout...");
             this.scrollTo(mMenuWidth, 0);
         }
     }
 
     @Override
     public boolean onInterceptHoverEvent(MotionEvent event) {
+        mlog.info("onInterceptHoverEvent action = " + event.getAction());
         if(event.getAction() == MotionEvent.ACTION_DOWN){
             return false;
         }else{
@@ -146,16 +147,17 @@ public class SlidingMenu extends HorizontalScrollView {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
+        mlog.info("onInterceptTouchEvent action = " + ev.getAction());
         return super.onInterceptTouchEvent(ev) && mGestureDetector.onTouchEvent(ev);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         int action = ev.getAction();
-
+        mlog.info("onTouchEvent action = " + action);
         switch (action) {
             case MotionEvent.ACTION_MOVE:
-                mlog.debug("Touch action moving...");
+                mlog.debug("onTouchEvent moving...");
                 break;
             case MotionEvent.ACTION_UP:
                 //隐藏在左边的宽度
@@ -167,14 +169,14 @@ public class SlidingMenu extends HorizontalScrollView {
                     if (mSlidingMenuListener != null) {
                         mSlidingMenuListener.close();
                     }
-                    mlog.info("Touch action up isOpen=false...");
+                    mlog.info("onTouchEvent up isOpen = false...");
                 } else {
                     this.smoothScrollTo(0, 0); // 代表menu打开
                     isOpen = true;
                     if (mSlidingMenuListener != null) {
                         mSlidingMenuListener.open();
                     }
-                    mlog.info("Touch action up isOpen=true...");
+                    mlog.info("onTouchEvent up isOpen = true...");
                 }
                 return true;
         }

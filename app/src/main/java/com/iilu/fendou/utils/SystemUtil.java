@@ -109,32 +109,21 @@ public class SystemUtil {
     }
 
     /**
-     * 判断app是否活着方式1
+     * 判断app是否活着方式
      *
      * @param context
      * @return
      */
-    public static boolean isAppAlive_1(Context context) {
-        if (context == null) return false;
-        ActivityManager aManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        List<ActivityManager.RunningTaskInfo> list = aManager.getRunningTasks(1);
-        return context.getPackageName().equalsIgnoreCase(list.get(0).baseActivity.getPackageName());
-    }
-
-    /**
-     * 判断app是否活着方式2
-     *
-     * @param context
-     * @return
-     */
-    public static boolean isAppAlive_2(Context context) {
+    public static boolean isAppAlive(Context context) {
         if (context == null) return false;
         String packageName = context.getPackageName();
         ActivityManager aManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        List<ActivityManager.RunningAppProcessInfo> processInfos = aManager.getRunningAppProcesses();
-        for (int i = 0; i < processInfos.size(); i++) {
-            ActivityManager.RunningAppProcessInfo info = processInfos.get(i);
-            if (packageName.equalsIgnoreCase(info.processName)) return true;
+        if (aManager != null) {
+            List<ActivityManager.RunningAppProcessInfo> processInfos = aManager.getRunningAppProcesses();
+            for (int i = 0; i < processInfos.size(); i++) {
+                ActivityManager.RunningAppProcessInfo info = processInfos.get(i);
+                if (packageName.equalsIgnoreCase(info.processName)) return true;
+            }
         }
         return false;
     }

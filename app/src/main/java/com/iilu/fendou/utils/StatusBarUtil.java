@@ -49,43 +49,6 @@ public class StatusBarUtil {
         }
     }
 
-    public static int getStatusBarHeight(Context context) {
-        int result = 0;
-        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            result = context.getResources().getDimensionPixelSize(resourceId);
-        }
-        return result;
-    }
-
-    /**
-     * 通过反射的方式获取状态栏高度
-     * @return
-     */
-    public static int getStatusBarHeight_2(Context context) {
-        try {
-            Class<?> c = Class.forName("com.android.internal.R$dimen");
-            Object obj = c.newInstance();
-            Field field = c.getField("status_bar_height");
-            int x = Integer.parseInt(field.get(obj).toString());
-            return context.getResources().getDimensionPixelSize(x);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return 0;
-    }
-
-    /**
-     * 获取底部导航栏高度
-     * @return
-     */
-    public static int getNavigationBarHeight(Context context) {
-        Resources resources = context.getResources();
-        int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
-        //获取NavigationBar的高度
-        return resources.getDimensionPixelSize(resourceId);
-    }
-
     /**
      * 获取是否存在NavigationBar
      * @param context
